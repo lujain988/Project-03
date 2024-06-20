@@ -5,7 +5,7 @@
   box-sizing: border-box;
   font-family: "poppins", sans-serif;
 }
-body {
+.passwordContainer {
   display: flex;
   justify-content: center;
   align-items: center;

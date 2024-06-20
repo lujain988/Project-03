@@ -43,7 +43,7 @@ loginForm.addEventListener("submit", function (event) {
         localStorage.setItem("userEmail", userEmail); // Store user email for later retrieval
         localStorage.setItem(
           "message",
-          `Hello, ${loggedInUser.userName}! Welcome back!`
+          `Hello, ${loggedInUser.userName}! Welcome here!`
         );
 
         // Proceed with successful login actions here
