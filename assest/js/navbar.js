@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Check the login status on page load
-  const isLoggedIn = localStorage.usersData;
+  const isLoggedIn = localStorage.getItem("loggedIn") === "true";
   checkLoginStatus(isLoggedIn);
+  
   if (localStorage.message) {
     const toastTrigger = document.getElementById("liveToastBtn");
     const toastLiveExample = document.getElementById("liveToast");
@@ -11,6 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("message").innerText = localStorage.message;
     localStorage.removeItem("message");
     toastBootstrap.show();
+  }
+
+  // Retrieve and log user information if available
+  if (localStorage.usersData && localStorage.userEmail) {
+    let user = JSON.parse(localStorage.usersData).find(
+      (user) => user.email === localStorage.userEmail
+    );
+    console.log(user);
   }
 });
 
@@ -30,22 +39,10 @@ function checkLoginStatus(isLoggedIn) {
   }
 }
 
-function login() {
-  // Simulate a login process
-  localStorage.setItem("loggedIn", "true");
-  // const username = "JohnDoe";
-  checkLoginStatus(true);
-  // showWelcomeMessage(username);
-  localStorage.message = "";
-  let x = JSON.parse(localStorage.usersData).find(
-    (user) => user.email === localStorage.userEmail
-  );
-  console.log(x);
-}
-
 function logout() {
   // Simulate a logout process without deleting user data
   localStorage.setItem("loggedIn", "false");
   checkLoginStatus(false);
 }
+
 document.getElementById("logout").addEventListener("click", logout);

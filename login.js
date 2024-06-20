@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 loginForm.addEventListener("submit", function (event) {
-  event.preventDefault(); // عشان ما يعيد تحميل الصفحه
+  event.preventDefault(); // Prevent page reload
 
   const userEmail = emailInput.value;
   const userPassword = passwordInput.value;
@@ -32,16 +32,19 @@ loginForm.addEventListener("submit", function (event) {
           localStorage.setItem("rememberMe", "true");
           localStorage.setItem("userEmail", userEmail);
           localStorage.setItem("userPassword", userPassword);
-          localStorage.message = "";
-          let user = JSON.parse(localStorage.usersData).find(
-            (user) => user.email === localStorage.userEmail
-          );
-          localStorage.message = `Welcome ${user.userName}`;
         } else {
           localStorage.removeItem("rememberMe");
           localStorage.removeItem("userEmail");
           localStorage.removeItem("userPassword");
         }
+
+        // Set loggedIn status to true upon successful login
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userEmail", userEmail); // Store user email for later retrieval
+        localStorage.setItem(
+          "message",
+          `Hello, ${loggedInUser.userName}! Welcome back!`
+        );
 
         // Proceed with successful login actions here
         delete loggedInUser.password;
@@ -58,4 +61,4 @@ loginForm.addEventListener("submit", function (event) {
   } else {
     console.log("No users data in localStorage");
   }
-}); // Closing parenthesis added here
+});
