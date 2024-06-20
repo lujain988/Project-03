@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="register.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>project 3 Register</title>
+  </head>
+  <body>
+    <!-- start Register page -->
+
+    <div class="login">
+      <form id="form" action="">
+        <h1>Sign Up</h1>
+        <h4><span>Create</span> your account</h4>
+        <div class="input-box">
+          <input id="userName" type="text" placeholder="User Name " />
+          <i class="bx bxs-user-circle"></i>
+          <p class="error"></p>
+        </div>
+
+        <div class="input-box">
+          <input id="email" type="text" placeholder="Email" />
+          <i class="bx bxs-envelope"></i>
+          <div class="error"></div>
+        </div>
+
+        <div class="input-box">
+          <input id="password" type="password" placeholder="Password" />
+          <i class="bx bx-dialpad-alt"></i>
+          <div class="error"></div>
+        </div>
+
+        <div class="input-box">
+          <input
+            id="confirmPassowrd"
+            type="password"
+            placeholder=" Confirm Password"
+          />
+          <i class="bx bx-dialpad-alt"></i>
+          <div class="error"></div>
+        </div>
+
+        <button type="submit" class="btn">Sign Up</button>
+        <div class="rejister-link">
+          <p>already have an account ? <a href="login.html"> login</a></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- end Register page  -->
+    <script src="register.js"></script>
+  </body>
+</html>

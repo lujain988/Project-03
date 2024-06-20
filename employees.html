@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/css/icons.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="assets/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <title>Dashboard</title>
+  </head>
+  <body class="dashboard">
+    <aside class="side-bar">
+      <div class="side-bar-log">
+        <img src="assets/images/logo.png" alt="logo" />
+        <div>
+          <h2>Gateway</h2>
+          <p>HR and task system</p>
+        </div>
+      </div>
+      <ul class="side-bar-links">
+        <li>
+          <a href="dashboard.html"
+            ><div class="dashboard-icon icon"></div>
+            <span>Dashboard</span></a
+          >
+        </li>
+        <li class="active">
+          <a href="#"
+            ><div class="employee-icon icon"></div>
+            <span>Employees</span></a
+          >
+        </li>
+        <li>
+          <a href="tasks_tracker.html"
+            ><div class="tasks-icon icon"></div>
+            <span>Tasks Tracker</span></a
+          >
+        </li>
+        <li>
+          <a href="leave_application.html"
+            ><div class="leave-icon icon"></div>
+            <span>Leaves</span></a
+          >
+        </li>
+      </ul>
+    </aside>
+    <div class="page">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <div class="header">
+        <h1>Employees</h1>
+        <button class="btn btn-primary">Add employee</button>
+      </div>
+
+      <div class="container">
+        <div class="tables">
+          <div class="table-taps">
+            <div class="dropdown">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-layout-three-columns"></i>
+              </button>
+              <ul id="employee-table-columns" class="dropdown-menu"></ul>
+            </div>
+            <div>
+              <input
+                class="form-control my-4"
+                type="search"
+                id="filter"
+                aria-label="Search"
+                placeholder="ex. John Smith"
+              />
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="table table-striped" id="employee-table">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="assets/javascripts/employee_table.js"></script>
+    <script src="assets/javascripts/popper.min.js"></script>
+    <script src="assets/javascripts/bootstrap.js"></script>
+  </body>
+</html>

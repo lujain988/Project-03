@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="profile.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="logo">HRMagnet</div>
+        <div class="menu">
+            <a href="#">Dashboard</a>
+            <a href="#">Employee Management</a>
+            <a href="#">Task Lists</a>
+            <a href="#">Time Tracking</a>
+            <a href="#">Performance</a>
+            <a href="#">Recruitment</a>
+            <a href="#">More</a>
+        </div>
+        <div class="user-profile">
+            <img id="profilePhoto" src="profile-icon.png" alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%;">
+        </div>
+    </nav>
+
+
+    <div class="profile-details">
+        <div class="profile-header">
+            <div class="profile-header-left">
+                <img id="profilePicture" src="" alt="Profile Picture" class="profile-picture">
+                <div class="profile-info">
+                    <h1 id="profileName"><span id="first_name"></span>&nbsp;<span id="last_name"></span></h1>
+                    <span class="status" id="employeeType1"></span><br>
+                    <span class="position"><i class='bx bx-shopping-bag'></i> <span id="jobTitle1"></span></span>
+                    <span class="department"><i class='bx bx-home'></i> <span id="department"></span></span>
+                </div>
+            </div>
+            <button class="edit-profile" onclick="window.location.href='Edit Profile.html'">
+                <i class='bx bx-edit-alt' style='color:#6d31ed'></i> Edit Profile
+            </button>
+        </div>
+
+        <div class="general-information">
+            <h2>General Information</h2><hr>
+            <h3>Personal Information</h3>
+            <div class="info-section">
+                <table>
+                    <tr>
+                        <th>ID Number</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                    <tr>
+                        <td id="profileId"></td>
+                        <td id="profileEmail"></td>
+                        <td id="profilePhone"></td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <th>Country</th>
+                        <th>City</th>
+                    </tr>
+                    <tr>
+                        <td id="profileAddress"></td>
+                        <td id="profileCountry"></td>
+                        <td id="profileCity"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <h3>Education</h3>
+        <div id="profileEducation" class="education">
+            <!-- Education details will be loaded here -->
+        </div>
+        <hr>
+        <div class="job-information">
+            <h2>Job</h2>
+            <hr>
+            <div class="item">
+                <div>
+                    <p>Job Title:&nbsp;&nbsp;<span id="jobTitle"></span></p>
+                    <p>Department:&nbsp;&nbsp;<span id="department1"></span></p>
+                    <p>Employment Type:&nbsp;&nbsp;<span id="employeeType"></span></p>
+                </div>
+                <div>
+                    <p>Start date:&nbsp;&nbsp;<span id="startDate"></span></p>
+                    <p>Contract end date:&nbsp;&nbsp;<span id="contractEndDate"></span></p>
+                    <p>Line Manager:&nbsp;&nbsp;<span id="lineManager"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

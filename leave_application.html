@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/css/icons.css" />
+    <link
+      rel="stylesheet"
+      href="assets/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <title>Dashboard</title>
+  </head>
+  <body class="dashboard">
+    <aside class="side-bar">
+      <div class="side-bar-log">
+        <img src="assets/images/logo.png" alt="logo" />
+        <div>
+          <h2>Gateway</h2>
+          <p>HR and task system</p>
+        </div>
+      </div>
+      <ul class="side-bar-links">
+        <li>
+          <a href="dashboard.html"
+            ><div class="dashboard-icon icon"></div>
+            <span>Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="employees.html"
+            ><div class="employee-icon icon"></div>
+            <span>Employees</span></a
+          >
+        </li>
+        <li>
+          <a href="tasks_tracker.html"
+            ><div class="tasks-icon icon"></div>
+            <span>Tasks Tracker</span></a
+          >
+        </li>
+        <li class="active">
+          <a href="#"
+            ><div class="leave-icon icon"></div>
+            <span>Leaves</span></a
+          >
+        </li>
+      </ul>
+    </aside>
+    <div class="page">
+      <form>
+        <div
+          class="modal fade"
+          id="new-leave-form"
+          tabindex="-1"
+          aria-labelledby="new-leave-formLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="new-leave-formLabel">
+                  Create New Task
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="employee-name" class="form-label">Employee</label>
+                  <select class="form-select" id="employee-name" required>
+                    <option value="">Select Employee</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="department" class="form-label">Department</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="department"
+                    disabled
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="jop-title" class="form-label">Jop Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="jop-title"
+                    disabled
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="leaveType" class="form-label">Leave Type</label>
+                  <select class="form-select" id="leaveType" required>
+                    <option value="">Select Leave Type</option>
+                    <option value="Sick Leave">Sick Leave</option>
+                    <option value="Annual Leave">Annual Leave</option>
+                    <option value="Maternity Leave">Maternity Leave</option>
+                    <option value="Casual Leave">Casual Leave</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="startDate" class="form-label">Start Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="startDate"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="endDate" class="form-label">End Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="endDate"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="reason" class="form-label">Reason</label>
+                  <textarea
+                    class="form-control"
+                    id="reason"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <div class="header">
+        <h1>Leaves Applications</h1>
+        <button
+          data-bs-toggle="modal"
+          data-bs-target="#new-leave-form"
+          class="btn btn-primary"
+        >
+          <i class="bi bi-plus-square me-2"></i> Add a Leave
+        </button>
+      </div>
+
+      <div class="container">
+        <div class="tables">
+          <div class="table-taps">
+            <div class="dropdown">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-layout-three-columns"></i>
+              </button>
+              <ul id="employee-table-columns" class="dropdown-menu"></ul>
+            </div>
+            <div>
+              <input
+                class="form-control my-4"
+                type="search"
+                id="filter"
+                aria-label="Search"
+                placeholder="ex. John Smith"
+              />
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="table table-striped" id="employee-table">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="assets/javascripts/employee_table.js"></script>
+    <script src="assets/javascripts/popper.min.js"></script>
+    <script src="assets/javascripts/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="assets/javascripts/leave_aplications.js"></script>
+  </body>
+</html>

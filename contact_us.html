@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap.css"> -->
+    <link
+      rel="stylesheet"
+      href="assets/css/contact_us.css
+    "
+    />
+  </head>
+  <body>
+    <div class="contact_us_green">
+      <div class="responsive-container-block big-container">
+        <div class="responsive-container-block container">
+          <div
+            class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-5 wk-ipadp-10"
+            id="ifgi"
+          >
+            <div class="container-box">
+              <div class="text-content">
+                <p class="text-blk contactus-head">
+                  Contact us through the following links for any inquiries:
+                </p>
+              </div>
+              <div class="workik-contact-bigbox">
+                <div class="workik-contact-box">
+                  <div class="mail text-box">
+                    <i class="fa-solid fa-envelope con"></i>
+                    <p class="contact-text">Gateway@gmail.com</p>
+                  </div>
+                  <div class="phone text-box">
+                    <i class="fa-solid fa-phone con"></i>
+                    <p class="contact-text">+962 787 333 555</p>
+                  </div>
+                  <div class="address text-box">
+                    <i class="fa-solid fa-location-dot con"></i>
+                    <p class="contact-text">
+                      Amman 11821, Sultan Sulayman Al Qanuni St., Shmeisani.
+                    </p>
+                  </div>
+                </div>
+                <div class="social-media-links">
+                  <a href="">
+                    <i class="fa-brands fa-facebook-f soc"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa-brands fa-instagram soc"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa-brands fa-linkedin-in soc"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-7 wk-ipadp-10 line"
+            id="i69b-2"
+          >
+            <form class="form-box">
+              <div class="container-block form-wrapper">
+                <div class="head-text-box">
+                  <p class="text-blk contactus-head">Contact us</p>
+                  <p class="text-blk contactus-subhead">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim
+                  </p>
+                </div>
+
+                <div class="responsive-container-block">
+                  <p class="text-blk input-title" id="pra">
+                    We value your feedback! Please fill out the form below to
+                    share your thoughts and suggestions with us:
+                  </p>
+                  <div
+                    class="responsive-cell-block wk-ipadp-6 wk-tab-12 wk-mobile-12 wk-desk-6"
+                  >
+                    <p class="text-blk input-title">Name</p>
+                    <input required class="input" id="name" name="FirstName" />
+                  </div>
+                  <div
+                    class="responsive-cell-block wk-ipadp-6 wk-tab-12 wk-mobile-12 wk-desk-6"
+                  >
+                    <p class="text-blk input-title">Title</p>
+                    <input required class="input" id="title" name="Title" />
+                  </div>
+                  <div
+                    class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12"
+                  >
+                    <p class="text-blk input-title">Email</p>
+                    <input required class="input" id="email" name="Email" />
+                  </div>
+                  <div
+                    class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12"
+                  >
+                    <p class="text-blk input-title">Subject</p>
+                    <input required class="input" id="subject" name="Subject" />
+                  </div>
+                  <div
+                    class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12"
+                  >
+                    <p class="text-blk input-title" id="urmsg">Your message</p>
+                    <textarea
+                      required
+                      class="textinput"
+                      id="message"
+                    ></textarea>
+                  </div>
+
+                  <div
+                    class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12"
+                  >
+                    <p class="text-blk input-title">Gender</p>
+                    <div class="radio-wrapper">
+                      <input type="radio" name="gender" id="male" checked />
+                      <label for="male">Male</label>
+                      <input type="radio" name="gender" id="female" />
+                      <label for="female">Female</label>
+                    </div>
+                  </div>
+
+                  <div class="btn-wrapper">
+                    <button class="submit-btn" onclick="SaveFeedback()">
+                      <i class="fa-solid fa-paper-plane mes"></i>
+                      Send Message
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let nameL = document.getElementById("name");
+      let titleL = document.getElementById("title");
+      let emailL = document.getElementById("email");
+      let subjectL = document.getElementById("subject");
+      let messageL = document.getElementById("message");
+
+      function SaveFeedback() {
+        var formEntry = {
+          Name: nameL.value,
+          Title: titleL.value,
+          Email: emailL.value,
+          Subject: subjectL.value,
+          Message: messageL.value,
+          Gender: document.getElementById("male").checked ? "Male" : "Female",
+          Date: new Date().toISOString(),
+        };
+
+        var entries = JSON.parse(localStorage.getItem("feedbackEntries")) || [];
+        entries.push(formEntry);
+        localStorage.setItem("feedbackEntries", JSON.stringify(entries));
+      }
+    </script>
+  </body>
+</html>

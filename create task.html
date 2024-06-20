@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box; 
+}
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: white;
+    padding: 20px 100px;
+}
+[placeholder] {
+    font-family: "Open Sans", sans-serif;
+}
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+pre {
+    font-size: 18px;
+    font-family: "Open Sans", sans-serif;
+}
+label {
+    font-size: 14px;
+}
+.MainLabel {
+    display: block;
+    line-height: 22px;
+    font-weight: bold;
+}
+#HeadDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#DivsContainer {
+    height: 580px;
+    display: flex;
+    padding: 32px;
+    border: lightgray 2px solid;
+}
+#leftDiv {
+    width: 30%;
+}
+#rightDiv {
+    width: 70%;
+}
+
+#rightDivContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "title title"
+        "status priority"
+        "startDate dueDate"
+        "Description Description"
+        "Assign Assign"
+        "supervisor supervisor";
+    gap: 20px;
+}
+input, select, textarea {
+    padding: 7px 12px; 
+    border-radius: 4px;
+    border: none;
+    height: 35px;
+}
+#TaskTitle, #Status, #PrioritiesOptions, #StartDate, #DueDate, #Description{
+    width: 100%;
+    background-color: #EEEDEB;
+}
+textarea {
+    height: 127px;
+}
+#PriorityDiv input {
+    height: auto;
+}
+#PrioritiesOptions {
+    display: flex;
+    gap: 20px; 
+    height: 35px;
+    align-items: center;
+    background-color: #fff;
+}
+#TaskTitleDiv {
+    grid-area: title;
+}
+#StatusDiv {
+    grid-area: status;
+}
+#PriorityDiv {
+    grid-area: priority;
+}
+#StartDateDiv {
+    grid-area: startDate;
+}
+#DueDateDiv {
+    grid-area: dueDate;
+}
+#DescriptionDiv {
+    grid-area: Description;
+    margin-bottom: 30px;
+}
+#AssignMembersDiv {
+    grid-area: Assign;
+    margin-bottom: 23px;
+}
+#AssignMembersSelect, #AssignMembersSelect0{
+    appearance: none;
+    color: #4291AF;
+}
+#ButtonsDiv{
+    display: flex;
+    gap: 12px;
+}
+#CancelBut{
+    padding: 7px 12px;
+    background-color: #EEEDEB;
+    color:#565E6C;
+    border-radius: 4px;
+    border: none;
+}
+#CreateBut{
+    padding: 7px 12px;
+    background-color: #4291AF;
+    color: white;
+    border-radius: 4px;
+    border: none;
+}
+.secondSelect{
+    display: none;
+}
+
+    </style>
+</head>
+<body>
+  <div id="HeadDiv">
+    <h1>Create a Task</h1>
+    <div id="ButtonsDiv">
+        <button id="CancelBut">Cancel</button>
+        <button id="CreateBut" onclick="createNewTask()">Create</button>
+    </div>
+  </div>
+
+  <div id="DivsContainer">
+
+    <div id="leftDiv">
+        <pre><i class="fa-solid fa-circle-info"></i>  General Info</pre>
+    </div>
+
+    <div id="rightDiv">
+        <form>
+
+          <div id="rightDivContent">
+
+            <div class="formDiv" id="TaskTitleDiv">
+                <label class="MainLabel" for="TaskTitle">Task Title</label>
+                <input required type="text" id="TaskTitle" placeholder="Type name">
+            </div>
+
+            <div class="formDiv" id="StatusDiv">
+                <label class="MainLabel" for="Status">Status</label>
+                <select required name="Status" id="Status">
+                  <option value="to-do">To-do</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <div class="formDiv" id="PriorityDiv">
+                <label class="MainLabel" id="PriorityLabel" for="Priority">Priority</label>
+                <div id="PrioritiesOptions">
+                    <div id="HighDiv">
+                        <input type="radio" name="Priority" id="High" class="priorityClass">
+                        <label for="High">High</label>
+                    </div>
+                    <div id="MediumDiv">
+                        <input checked type="radio" name="Priority" id="Medium" class="priorityClass">
+                        <label for="Medium">Medium</label>
+                    </div>
+                    <div id="LowDiv">
+                        <input type="radio" name="Priority" id="Low" class="priorityClass">
+                        <label for="Low">Low</label>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="formDiv" id="StartDateDiv">
+                <label class="MainLabel" for="StartDate">Start Date</label>
+                <input required type="date" name="StartDate" id="StartDate">
+            </div>
+
+            <div class="formDiv" id="DueDateDiv">
+                <label class="MainLabel" for="DueDate">Due Date</label>
+                <input required type="date" name="DueDate" id="DueDate">
+            </div>
+
+            <div class="formDiv" id="DescriptionDiv">
+                <label class="MainLabel" for="Description">Description</label>
+                <textarea required name="Description" id="Description" placeholder="Write description of the task and provide example"></textarea>
+            </div>
+
+            <div class="formDiv" id="AssignMembersDiv">
+                <label class="MainLabel" for="AssignMembersSelect">Assign To Members</label>
+                <div id="membersContainer">
+                    <select name="members" id="AssignMembersSelect" class="select-dropdown" onchange="addMemberDropdown(this)">
+                        <option disabled selected>+ Add person</option>
+                    </select>
+                </div>
+            </div>
+
+        </form>
+    </div>
+  </div>
+  <script>
+ const url = "employees_data.json";
+
+async function getData(selectElement) {
+    const response = await fetch(url);
+    const jsonData = await response.json();
+    jsonData.forEach(employee => {
+        const option = document.createElement('option');
+        option.value = employee["Full Name"];
+        option.textContent = employee["Full Name"];
+        selectElement.appendChild(option);
+    });
+}
+
+function addMemberDropdown(selectElement) {
+    const membersContainer = document.getElementById('membersContainer');
+    const newSelect = selectElement.cloneNode(true);
+    newSelect.value = "+ Add person"; // Reset the new dropdown
+    newSelect.onchange = function() { addMemberDropdown(newSelect); };
+    membersContainer.appendChild(newSelect);
+    getData(newSelect); // Populate new dropdown
+    styleDropdown(selectElement); // Style the changed dropdown
+}
+function styleDropdown(selectElement) {
+        selectElement.style.backgroundColor = '#93c9de';
+        selectElement.style.color = 'black';
+        selectElement.style.border = 'none';
+        selectElement.style.borderRadius = '20px';
+        selectElement.style.margin='5px';
+    }
+
+    // Initialize the first dropdowns
+    getData(document.getElementById('AssignMembersSelect'));
+
+
+    function createNewTask() {
+    var Priority;
+    if (document.getElementById('High').checked) {
+        Priority = 'High';
+    } else if (document.getElementById('Medium').checked) {
+        Priority = 'Medium';
+    } else if (document.getElementById('Low').checked) {
+        Priority = 'Low';
+    }
+
+    var selectedMembers = Array.from(document.getElementById('AssignMembersSelect').options)
+        .filter(option => option.selected)
+        .map(option => option.value);
+
+    
+    var TaskformEntry = {
+        Title: document.getElementById('TaskTitle').value,
+        Status: document.getElementById('Status').value,
+        Priority: Priority,
+        StartDate: document.getElementById('StartDate').value,
+        DueDate: document.getElementById('DueDate').value,
+        Description: document.getElementById('Description').value,
+        Members: selectedMembers,
+    };
+
+   
+    var TaskEntries = JSON.parse(localStorage.getItem('CreateTaskEntries')) || [];
+    TaskEntries.push(TaskformEntry);
+    localStorage.setItem('CreateTaskEntries', JSON.stringify(TaskEntries));
+}
+
+
+
+
+
+  </script>
+</body>
+</html>
