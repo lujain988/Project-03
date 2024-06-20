@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Check the login status on page load
   const isLoggedIn = localStorage.usersData;
   checkLoginStatus(isLoggedIn);
+  if (localStorage.message) {
+    const toastTrigger = document.getElementById("liveToastBtn");
+    const toastLiveExample = document.getElementById("liveToast");
+
+    const toastBootstrap =
+      bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+    document.getElementById("message").innerText = localStorage.message;
+    localStorage.removeItem("message");
+    toastBootstrap.show();
+  }
 });
 
 function checkLoginStatus(isLoggedIn) {
@@ -23,15 +33,19 @@ function checkLoginStatus(isLoggedIn) {
 function login() {
   // Simulate a login process
   localStorage.setItem("loggedIn", "true");
-  const username = "JohnDoe";
+  // const username = "JohnDoe";
   checkLoginStatus(true);
-  showWelcomeMessage(username);
+  // showWelcomeMessage(username);
+  localStorage.message = "";
+  let x = JSON.parse(localStorage.usersData).find(
+    (user) => user.email === localStorage.userEmail
+  );
+  console.log(x);
 }
 
 function logout() {
-  // Simulate a logout process
-
-  localStorage.removeItem("usersData");
+  // Simulate a logout process without deleting user data
+  localStorage.setItem("loggedIn", "false");
   checkLoginStatus(false);
 }
 document.getElementById("logout").addEventListener("click", logout);

@@ -1,32 +1,3 @@
-// const loginForm = document.querySelector("#login");
-// loginForm.addEventListener("submit", function (event) {
-//   event.preventDefault(); // عشان ما يعيد تحميل الصفحه
-//   // let form = {
-//   //   userName: document.getElementById("userName").value,
-//   //   password: document.getElementById("password").value,
-//   // };
-
-//   // localStorage.setItem("form", JSON.stringify(form)); // سيت اي يعني اضافه تحويل  من جيسون الى سترينق
-
-//   // const userData = localStorage.getItem("form");
-//   const userEmail = document.querySelector("#email").value;
-//   const userPasword = document.querySelector("#password").value;
-
-//   const users = JSON.parse(localStorage.getItem("usersData"));
-//   const isValidUser = users.filter((user) => user.email == userEmail);
-
-//   if (isValidUser.length) {
-//     if (isValidUser[0].password == userPasword) {
-//       console.log("user Found");
-//     } else {
-//       console.log("password error");
-//     }
-//   } else {
-//     console.log("No user found");
-//   }
-// });
-///////////////////////////////////////////////////////////////
-
 const loginForm = document.querySelector("#login");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
@@ -44,14 +15,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 loginForm.addEventListener("submit", function (event) {
   event.preventDefault(); // عشان ما يعيد تحميل الصفحه
 
-  // let form = {
-  //   userName: document.getElementById("userName").value,
-  //   password: document.getElementById("password").value,
-  // };
-
-  // localStorage.setItem("form", JSON.stringify(form)); // سيت اي يعني اضافه تحويل  من جيسون الى سترينق
-
-  // const userData = localStorage.getItem("form");
   const userEmail = emailInput.value;
   const userPassword = passwordInput.value;
 
@@ -69,6 +32,11 @@ loginForm.addEventListener("submit", function (event) {
           localStorage.setItem("rememberMe", "true");
           localStorage.setItem("userEmail", userEmail);
           localStorage.setItem("userPassword", userPassword);
+          localStorage.message = "";
+          let user = JSON.parse(localStorage.usersData).find(
+            (user) => user.email === localStorage.userEmail
+          );
+          localStorage.message = `Welcome ${user.userName}`;
         } else {
           localStorage.removeItem("rememberMe");
           localStorage.removeItem("userEmail");
