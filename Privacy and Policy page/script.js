@@ -36,7 +36,7 @@ function logout() {
 }
 ////// end of code
 document.addEventListener("DOMContentLoaded", async () => {
-  const response = await fetch("policy.JSON");
+  const response = await fetch("Privacy and Policy page/policy.JSON");
   const data = await response.json();
   const accordion = document.getElementById("accordionExample");
 
