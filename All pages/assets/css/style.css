@@ -25,14 +25,13 @@ th:hover {
 }
 
 .table-container {
-  height: 650px;
-  width: 100%;
-  overflow: auto;
+  th {
+    position: sticky;
+    top: 0;
+  }
+  overflow-y: auto;
   scrollbar-width: none;
-}
-th {
-  position: sticky;
-  top: 0;
+  height: 650px;
 }
 .table-container::-webkit-scrollbar {
   display: none;
@@ -104,7 +103,7 @@ th {
 @media only screen and (max-width: 768px) {
   .dashboard {
     display: grid;
-    grid-template-columns: 87px 1fr;
+    grid-template-columns: 87px auto;
     gap: 10px;
     min-height: 100vh;
   }
@@ -258,4 +257,8 @@ th {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.pointer {
+  cursor: pointer;
 }

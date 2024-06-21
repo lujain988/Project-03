@@ -1,3 +1,8 @@
+import {
+  populateEmployeeData,
+  createHeadings,
+} from "./table_maker.js";
+
 let table_body = document.querySelector("#employee-table tbody");
 let table_head = document.querySelector("#employee-table thead");
 let filter;
@@ -14,18 +19,8 @@ let table_heading = [
 ];
 
 // Make the heading for the table
-function createHeadings() {
-  let tr = document.createElement("tr");
-  table_head.innerHTML = "";
-  tr.appendChild(createTh("#"));
-  table_heading
-    .map((heading) => createTh(heading, true))
-    .forEach((th) => {
-      tr.appendChild(th);
-    });
-  table_head.appendChild(tr);
-}
-createHeadings();
+
+createHeadings(table_head, table_heading);
 
 // Get the data from the json file.
 async function getData() {
@@ -34,72 +29,17 @@ async function getData() {
     data = await response.json();
   }
 }
+
 await getData();
-
-// Fill the table with the employees data.
-
-function populateEmployeeData() {
-  let i = 1;
-  let table_data = data;
-
-  // Filter the data filter word has been provided
-  if (filter)
-    table_data = data.filter((employee) =>
-      table_heading
-        .map((heading) => employee[heading[1]])
-        .some((value) => String(value).toLocaleLowerCase().includes(filter))
-    );
-
-  // Sort the rows in the table if a search option has been selected
-  if (sortOption)
-    table_data.sort((a, b) => {
-      if (sortOption === "Hire Date")
-        return new Date(b["Hire Date"]) - new Date(a["Hire Date"]);
-      if (a[sortOption] < b[sortOption]) return -1;
-      if (a[sortOption] > b[sortOption]) return 1;
-    });
-  //  clean the table body before inserting the data
-  table_body.innerHTML = "";
-  table_data.forEach((element) => {
-    let tr = document.createElement("tr");
-    let row = [
-      createTd(i),
-      ...table_heading.map((heading) => createTd(element[heading[1]])),
-    ];
-    row.forEach((element) => tr.appendChild(element));
-    table_body.appendChild(tr);
-    i++;
-  });
-}
-
-// Create table data cell
-function createTd(value) {
-  let td = document.createElement("td");
-  td.innerText = value;
-  return td;
-}
-
-// create table heading element
-function createTh(value, sortable) {
-  let th = document.createElement("th");
-  th.innerText = value[0];
-  th.id = value[0];
-  th.value = 0;
-  if (sortable)
-    th.addEventListener("click", (event) => {
-      sortOption = value[1];
-      populateEmployeeData();
-    });
-  return th;
-}
 
 // Add event to each created head if it is sortable to sort table rows
 let filterInput = document.getElementById("filter");
+
 try {
   filterInput.addEventListener("input", (e) => {
     console.log(e);
     filter = filterInput.value.toLowerCase();
-    populateEmployeeData();
+    populateEmployeeData(table_body, data, filter, table_heading, sortOption);
   });
 } catch (error) {
   console.warn("Couldn't find the filter for the table.");
@@ -127,8 +67,8 @@ try {
       } else {
         table_heading = table_heading.filter((val) => val[1] !== input.value);
       }
-      createHeadings();
-      populateEmployeeData();
+      createHeadings(table_head, table_heading);
+      populateEmployeeData(table_body, data, filter, table_heading, sortOption);
     });
 
     li.appendChild(input);
@@ -144,8 +84,9 @@ try {
   }
 } catch (error) {
   console.warn(
-    "You should add the heading option component in order to add or remove table columns"
+    "You should add the 'heading option' component in order to add or remove table columns"
   );
 }
+
 // Add data to the table in the start of the code
-populateEmployeeData();
+populateEmployeeData(table_body, data, filter, table_heading, sortOption);
