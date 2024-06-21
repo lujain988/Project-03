@@ -49,7 +49,7 @@ loginForm.addEventListener("submit", function (event) {
         // Proceed with successful login actions here
         delete loggedInUser.password;
         localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-        window.location.href = "index.html";
+        window.location.href = '../../index.html';
       } else {
         document.querySelector(".login-error").innerText =
           " Please check your email, password or both";

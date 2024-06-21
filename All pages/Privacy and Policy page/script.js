@@ -28,4 +28,5 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
     accordion.appendChild(accordionItem);
   }
+  
 });

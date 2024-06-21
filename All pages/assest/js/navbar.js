@@ -45,7 +45,7 @@ function logout() {
   // Simulate a logout process without deleting user data
   localStorage.setItem("loggedIn", "false");
   checkLoginStatus(false);
-  window.location.href = "index.html";
+  window.location.href = "../../../index.html";
 }
 
 document.getElementById("logout").addEventListener("click", logout);
