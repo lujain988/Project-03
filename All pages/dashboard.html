@@ -9,7 +9,92 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <div class="dashboard">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a
+            class="navbar-brand"
+            href="https://library.livecanvas.com/sections/"
+          >
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#nav_lc"
+            aria-controls="nav_lc"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="nav_lc">
+            <ul
+              class="d-none d-lg-flex navbar-nav mx-auto my-3 my-lg-0 position-absolute top-50 start-50 translate-middle"
+            >
+              <li class="nav-item me-4">
+                <a class="nav-link" href="../index.html">Home</a>
+              </li>
+              <li class="nav-item me-4">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item me-4">
+                <a class="nav-link" href="Services.html" id="service"
+                  >Services</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact_us.html"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+            <ul class="navbar-nav my-3 my-lg-0 d-lg-none">
+              <li class="nav-item me-4">
+                <a class="nav-link" href="../index.html">Home</a>
+              </li>
+              <li class="nav-item me-4">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item me-4">
+                <a class="nav-link" href="Services.html" id="services"
+                  >Services</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact_us.html"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+            <div class="ms-lg-auto d-flex">
+              <a
+                class="btn btn-outline-primary me-2"
+                href="login.html"
+                id="login"
+                >Login</a
+              >
+              <a
+                class="btn btn-primary me-2"
+                href="register.html"
+                id="register"
+                >Register</a
+              >
+              <a class="btn btn-outline-primary me-2" href="#" id="logout"
+                >Logout</a
+              >
+              <a
+                class="btn btn-primary"
+                href="Profile.html"
+                id="profile-info"
+                >Profile</a
+              >
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="dashboard">
       <div class="side-bar">
         <div class="side-bar-log">
           <img src="assets/images/logo.png" alt="logo" />
@@ -46,68 +131,6 @@
         </ul>
       </div>
       <div class="page">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#"
-                    >Home</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Dropdown
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Another action</a>
-                    </li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
-              </ul>
-              <form class="d-flex" role="search">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success" type="submit">
-                  Search
-                </button>
-              </form>
-            </div>
-          </div>
-        </nav>
         <h1>Dashboard</h1>
         <div class="cards">
           <div class="card border-primary">
@@ -279,8 +302,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
     <script type="module" src="assets/javascripts/employee_table.js"></script>
     <script src="assets/javascripts/bootstrap.js"></script>
+    <script src="assest/js/navbar.js"></script>
   </body>
 </html>
