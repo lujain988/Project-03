@@ -86,6 +86,7 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   // Get the data from the form
   let taskData = {
+    date: new Date().toString(),
     assignMembersSelect: selectedEmployees,
     priority: document.querySelector('input[name="Priority"]:checked').value,
   };

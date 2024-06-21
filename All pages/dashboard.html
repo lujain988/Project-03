@@ -44,9 +44,7 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact_us.html"
-                  >Contact Us</a
-                >
+                <a class="nav-link" href="contact_us.html">Contact Us</a>
               </li>
             </ul>
             <ul class="navbar-nav my-3 my-lg-0 d-lg-none">
@@ -62,9 +60,7 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact_us.html"
-                  >Contact Us</a
-                >
+                <a class="nav-link" href="contact_us.html">Contact Us</a>
               </li>
             </ul>
             <div class="ms-lg-auto d-flex">
@@ -74,19 +70,13 @@
                 id="login"
                 >Login</a
               >
-              <a
-                class="btn btn-primary me-2"
-                href="register.html"
-                id="register"
+              <a class="btn btn-primary me-2" href="register.html" id="register"
                 >Register</a
               >
               <a class="btn btn-outline-primary me-2" href="#" id="logout"
                 >Logout</a
               >
-              <a
-                class="btn btn-primary"
-                href="Profile.html"
-                id="profile-info"
+              <a class="btn btn-primary" href="Profile.html" id="profile-info"
                 >Profile</a
               >
             </div>
@@ -135,13 +125,15 @@
         <div class="cards">
           <div class="card border-primary">
             <div class="card-header d-flex justify-content-between">
-              <h3>New</h3>
+              <h3>To do</h3>
               <div class="icon-box bg-primary">
                 <div class="icon tasks-icon"></div>
               </div>
             </div>
-            <div class="card-body"><h4 class="text-primary">5</h4></div>
-            <div class="card-footer">+5 from yesterday</div>
+            <div class="card-body">
+              <h4 class="text-primary" id="to-do-tasks-count">0</h4>
+            </div>
+            <div class="card-footer" id="to-do-since-yesterday" >+0 since yesterday</div>
           </div>
           <div class="card border-warning">
             <div class="card-header d-flex justify-content-between">
@@ -150,8 +142,10 @@
                 <div class="icon play-icon"></div>
               </div>
             </div>
-            <div class="card-body"><h4 class="text-warning">5</h4></div>
-            <div class="card-footer">+5 from yesterday</div>
+            <div class="card-body">
+              <h4 class="text-warning" id="in-progress-tasks-count">0</h4>
+            </div>
+            <div class="card-footer" id="in-progress-since-yesterday" >+0 since yesterday</div>
           </div>
           <div class="card border-success">
             <div class="card-header d-flex justify-content-between">
@@ -160,18 +154,24 @@
                 <div class="icon complete-icon"></div>
               </div>
             </div>
-            <div class="card-body"><h4 class="text-success">5</h4></div>
-            <div class="card-footer">+5 from yesterday</div>
+            <div class="card-body">
+              <h4 class="text-success" id="completed-tasks-count">0</h4>
+            </div>
+            <div class="card-footer" id="completed-since-yesterday" >+0 since yesterday</div>
           </div>
           <div class="card border-primary">
             <div class="card-header d-flex justify-content-between">
-              <h3>Pending</h3>
+              <h3>On Hold</h3>
               <div class="icon-box bg-primary">
                 <div class="icon warning-icon"></div>
               </div>
             </div>
-            <div class="card-body"><h4 class="text-primary">5</h4></div>
-            <div class="card-footer">+5 from yesterday</div>
+            <div class="card-body">
+              <h4 class="text-primary" id="on-hold-tasks-count">5</h4>
+            </div>
+            <div class="card-footer" id="on-hold-since-yesterday">
+              + 5 since yesterday
+            </div>
           </div>
         </div>
         <div>
@@ -305,6 +305,7 @@
     </main>
     <script type="module" src="assets/javascripts/employee_table.js"></script>
     <script src="assets/javascripts/bootstrap.js"></script>
+    <script src="assets/javascripts/dashboard.js"></script>
     <script src="assest/js/navbar.js"></script>
   </body>
 </html>
