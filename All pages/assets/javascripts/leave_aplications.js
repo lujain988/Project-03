@@ -6,7 +6,7 @@ const department = document.getElementById("department");
 const startDate = document.getElementById("startDate");
 const modal = document.getElementById("new-leave-form");
 startDate.value = new Date().toISOString().split("T")[0];
-const leaves = (localStorage.leaves && localStorage.leaves) || [];
+const leaves = (localStorage.leaves && JSON.parse(localStorage.leaves)) || [];
 
 let employeeData;
 async function addEmployeeNamesOptions() {
@@ -43,6 +43,7 @@ employeeNameSelect.addEventListener("change", () => {
 
 // Add the form data into the local storage
 function crateNewLeave(leave) {
+  console.log(leaves);
   leaves.push(leave);
   localStorage.leaves = JSON.stringify(leaves);
 }

@@ -38,7 +38,7 @@ async function getData() {
 await getData();
 
 // Fill the table with the employees data.
-function populateEmployeeData() {
+function populateEmployeeData(data) {
   let i = 1;
   let table_data = data;
 
@@ -88,7 +88,7 @@ function createTh(value, sortable) {
   if (sortable)
     th.addEventListener("click", (event) => {
       sortOption = value[1];
-      populateEmployeeData();
+      populateEmployeeData(data);
     });
   return th;
 }
@@ -99,7 +99,7 @@ try {
   filterInput.addEventListener("input", (e) => {
     console.log(e);
     filter = filterInput.value.toLowerCase();
-    populateEmployeeData();
+    populateEmployeeData(data);
   });
 } catch (error) {
   console.warn("Couldn't find the filter for the table.");
@@ -128,7 +128,7 @@ try {
         table_heading = table_heading.filter((val) => val[1] !== input.value);
       }
       createHeadings();
-      populateEmployeeData();
+      populateEmployeeData(data);
     });
 
     li.appendChild(input);
@@ -148,4 +148,4 @@ try {
   );
 }
 // Add data to the table in the start of the code
-populateEmployeeData();
+populateEmployeeData(data);
