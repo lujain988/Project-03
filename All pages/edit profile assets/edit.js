@@ -1,3 +1,26 @@
+
+
+
+// const fileInput = document.getElementById('fileInput');
+// const profilePhotoPreview = document.getElementById('profilePhotoPreview');
+
+// fileInput.addEventListener('change', function (event) {
+//     const selectedFile = event.target.files[0];
+//     if (selectedFile) {
+//         const imageUrl = URL.createObjectURL(selectedFile);
+//         profilePhotoPreview.src = imageUrl;
+//     }
+// });
+
+
+const xxx = JSON.parse(localStorage.getItem("loggedInUser"));
+
+
+const Oldemail = xxx.email;
+
+
+
+
 // Validate Name
 let profileName = document.getElementById("profileName");
 let nameError = document.getElementById("nameError");
@@ -49,6 +72,36 @@ function validatePhone() {
     }
 }
 
+// Validate Current Password
+let currentPassword = document.getElementById("currentPassword");
+let currentPasswordError = document.getElementById("currentPasswordError");
+
+currentPassword.addEventListener("input", validateCurrentPassword);
+
+function validateCurrentPassword() {
+    try {
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (!loggedInUser || !loggedInUser.password) {
+            currentPasswordError.innerHTML = "No logged in user or password found.";
+            return false;
+        }
+        const storedPassword = loggedInUser.password; // Retrieve encrypted password from loggedInUser in localStorage
+        const decodedPassword = atob(storedPassword); // Decrypt to plain text
+
+        if (currentPassword.value === decodedPassword) {
+            currentPasswordError.innerHTML = "";
+            return true;
+        } else {
+            currentPasswordError.innerHTML = "Current password is incorrect";
+            return false;
+        }
+    } catch (error) {
+        console.error('Error validating current password:', error);
+        currentPasswordError.innerHTML = "Error validating current password";
+        return false;
+    }
+}
+
 // Validate New Password
 let newPassword = document.getElementById("newPassword");
 let newPasswordError = document.getElementById("newPasswordError");
@@ -81,36 +134,14 @@ function validateConfirmPassword() {
     }
 }
 
-
-
-// localStorage.setItem("currentPassword",123123)
 // النص المشفر Base64
 let encodedPassword = "MTIzQWJjJiY=";
 
 // فك التشفير إلى النص الأصلي
 let decodedPassword = atob(encodedPassword);
 
-console.log(decodedPassword);  // ستظهر "123Abc&&"
-
-// Validate Current Password
-let currentPassword = document.getElementById("currentPassword");
-let currentPasswordError = document.getElementById("currentPasswordError");
-
-currentPassword.addEventListener("input", validateCurrentPassword);
-
-function validateCurrentPassword() {
-    const savedPassword = decodedPassword ;
-    if (currentPassword.value === savedPassword) {
-        currentPasswordError.innerHTML = "";
-        return true;
-    } else {
-        currentPasswordError.innerHTML = "Current password is incorrect";
-        return false;
-    }
-}
-
 // Save Profile
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadProfileForEdit();
     loadSavedProfileData();
 
@@ -121,26 +152,29 @@ document.addEventListener('DOMContentLoaded', function() {
 function saveProfile(event) {
     event.preventDefault();
 
+    // Validate all fields
+    var isNameValid = validateName();
+    var isEmailValid = validateEmail();
+    var isPhoneValid = validatePhone();
+    var isNewPasswordValid = true;
+    var isConfirmPasswordValid = true;
+    var isCurrentPasswordValid = true;
 
-// التحقق من صحة جميع الحقول
-var isNameValid = validateName();
-var isEmailValid = validateEmail();
-var isPhoneValid = validatePhone();
-var isNewPasswordValid = true;
-var isConfirmPasswordValid = true;
+    // Validate new password only if entered
+    if (newPassword.value !== "" || confirmPassword.value !== "") {
+        isNewPasswordValid = validateNewPassword();
+        isConfirmPasswordValid = validateConfirmPassword();
 
-// تحقق من صحة كلمة المرور الجديدة فقط إذا تم إدخالها
-if (newPassword.value !== "" || confirmPassword.value !== "") {
-    isNewPasswordValid = validateNewPassword();
-    isConfirmPasswordValid = validateConfirmPassword();
-}
+        // Validate current password only if new password entered
+        if (newPassword.value !== "" && confirmPassword.value !== "") {
+            isCurrentPasswordValid = validateCurrentPassword();
+        }
 
-// تحقق من صحة كلمة المرور الحالية فقط إذا تم إدخال كلمة مرور جديدة
-var isCurrentPasswordValid = true;
-if (newPassword.value !== "" && confirmPassword.value !== "") {
-    isCurrentPasswordValid = validateCurrentPassword();
-}
-
+        // if (!isCurrentPasswordValid) {
+        //     alert('Current password is required to update password.');
+        //     return;
+        // }
+    }
 
     // Validate all fields
     if (isNameValid && isEmailValid && isPhoneValid && isCurrentPasswordValid && (newPassword.value === "" || (isNewPasswordValid && isConfirmPasswordValid))) {
@@ -148,7 +182,8 @@ if (newPassword.value !== "" && confirmPassword.value !== "") {
             const fullName = profileName.value.split(' ');
             const email = profileEmail.value;
             const phone = profilePhone.value;
-            const profilePhoto = document.getElementById('profilePhotoPreview').src;
+            const profilePhoto = document.getElementById("profilePhotoPreview").src;
+            
 
             const firstName = fullName[0];
             const lastName = fullName[1];
@@ -175,16 +210,42 @@ if (newPassword.value !== "" && confirmPassword.value !== "") {
             // Save updated profile data to localStorage
             localStorage.setItem('profileData', JSON.stringify(updatedProfileData));
 
-           // Check if new password is entered
-          const newPasswordValue = newPassword.value.trim();
-          if (newPasswordValue !== "") {
-           localStorage.setItem('decodedPassword', newPasswordValue);
-}
+            // Update loggedInUser data
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || {};
+            loggedInUser.userName = profileName.value;
+            loggedInUser.email = profileEmail.value;
 
+            // Check if new password is entered
+            const newPasswordValue = newPassword.value.trim();
+            if (newPasswordValue !== "") {
+                const encodedNewPassword = btoa(newPasswordValue); // Encrypt new password with Base64
+                loggedInUser.password = encodedNewPassword;
+            }
+
+            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+
+            // Retrieve usersData from local storage
+            const usersData = JSON.parse(localStorage.getItem("usersData")) || [];
+            console.log(usersData);
+
+            console.log(loggedInUser);
+            // Update the user's information in usersData
+            for (let i = 0; i < usersData.length; i++) {
+                if (usersData[i].email === Oldemail) {
+
+                    usersData[i].userName = loggedInUser.userName;
+                    usersData[i].password = loggedInUser.password;
+                    usersData[i].email = loggedInUser.email;
+
+                    // Save the updated usersData back to local storage
+                    localStorage.setItem("usersData", JSON.stringify(usersData));
+                    break; // نتوقف بمجرد العثور على المستخدم
+                }
+            }
 
 
             alert('Profile saved successfully!');
-
         } catch (error) {
             console.error('Error saving profile data:', error);
             alert('Failed to save profile data.');
@@ -204,38 +265,55 @@ function loadProfileForEdit() {
 
         const user = JSON.parse(profileData);
 
+        // استرجاع المعلومات من local storage
+        const loggedInUser = localStorage.getItem("loggedInUser");
+
+        // تحويل النص إلى كائن JSON
+        const userObject = JSON.parse(loggedInUser);
+
         // Populate form fields with profile data
-        profileName.value = `${user.personal_information.first_name} ${user.personal_information.last_name}`;
-        profileEmail.value = user.personal_information.email;
+        profileName.value = userObject.userName;
+        profileEmail.value = userObject.email;
         profilePhone.value = user.personal_information.phone;
-        profilePhoto.src=user.personal_information.profile_photo;
-       
+        profilePhotoPreview.src = user.personal_information.profile_photo;
 
     } catch (error) {
         console.error('Error loading profile data for edit:', error);
     }
 }
 
+
+
 function loadSavedProfileData() {
     try {
         const profileData = localStorage.getItem('profileData');
-        if (profileData) {
-            const user = JSON.parse(profileData);
-
-            // Populate form fields with saved profile data
-            profileName.value = `${user.personal_information.first_name} ${user.personal_information.last_name}`;
-            profileEmail.value = user.personal_information.email;
-            profilePhone.value = user.personal_information.phone;
-
-            if (user.personal_information.profile_photo) {
-                document.getElementById('profilePhotoPreview').src = user.personal_information.profile_photo;
-            }
+        if (!profileData) {
+            console.error('No profile data found in localStorage.');
+            return;
         }
 
+        const user = JSON.parse(profileData);
+
+        // استرجاع المعلومات من local storage
+        const loggedInUser = localStorage.getItem("loggedInUser");
+
+        // تحويل النص إلى كائن JSON
+        const userObject = JSON.parse(loggedInUser);
+
+        // Populate form fields with profile data
+        profileName.value = userObject.userName;
+
+        profileEmail.value = userObject.email;
+        profilePhone.value = user.personal_information.phone;
+        var profilePhotoPreview = document.getElementById('profilePhotoPreview');
+        profilePhotoPreview.src = user.personal_information.profile_photo;
+
     } catch (error) {
-        console.error('Error loading saved profile data:', error);
+        console.error('Error loading profile data for edit:', error);
     }
 }
+
+
 
 function cancelEdit() {
     window.location.href = 'Profile.html'; // Adjust based on your actual profile page filename
