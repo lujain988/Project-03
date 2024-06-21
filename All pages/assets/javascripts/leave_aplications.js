@@ -4,7 +4,7 @@ const employeeNameSelect = document.getElementById("employee-name");
 const jopTitle = document.getElementById("jop-title");
 const department = document.getElementById("department");
 const startDate = document.getElementById("startDate");
-const modal = document.getElementById("new-leave-form")
+const modal = document.getElementById("new-leave-form");
 startDate.value = new Date().toISOString().split("T")[0];
 const leaves = (localStorage.leaves && localStorage.leaves) || [];
 
@@ -57,9 +57,9 @@ addEmployeeForm.addEventListener("submit", (event) => {
     endDate: document.getElementById("endDate").value,
     reason: document.getElementById("reason").value,
   };
-  crateNewLeave(form);
+  crateNewLeave(formData);
   // Reset form after submit
-  form.reset();
+  addEmployeeForm.reset();
   startDate.value = new Date().toISOString().split("T")[0];
 
   // Close the modal
