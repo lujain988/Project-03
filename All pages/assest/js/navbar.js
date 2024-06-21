@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let user = JSON.parse(localStorage.usersData).find(
       (user) => user.email === localStorage.userEmail
     );
-    console.log(user);
   }
 });
 
