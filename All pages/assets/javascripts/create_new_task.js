@@ -172,3 +172,4 @@ function addTaskToPage(task) {
 tasks.forEach((task) => {
   addTaskToPage(task);
 });
+
