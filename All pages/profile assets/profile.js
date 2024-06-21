@@ -1,4 +1,3 @@
-
 async function loadProfile() {
   try {
     // حاول الحصول على البيانات من localStorage
