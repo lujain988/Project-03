@@ -34,10 +34,10 @@ async function getData() {
     data = await response.json();
   }
 }
+
 await getData();
 
 // Fill the table with the employees data.
-
 function populateEmployeeData() {
   let i = 1;
   let table_data = data;

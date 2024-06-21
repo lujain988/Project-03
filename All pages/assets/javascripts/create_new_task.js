@@ -84,6 +84,7 @@ function addTaskToLocalStorage(task) {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+
   // Get the data from the form
   let taskData = {
     date: new Date().toString(),
@@ -94,12 +95,10 @@ form.addEventListener("submit", (event) => {
     taskData[key] = formFields[key].value;
   });
   addTaskToLocalStorage(taskData);
+
   // Clear form data
   form.reset();
-  // Set default starting date to be today again
   formFields.startDate.value = new Date().toISOString().split("T")[0];
-
-  // Reset selected employee list
   selectedEmployeesSpan.innerHTML = "";
   bootstrap.Modal.getInstance(modal).hide();
 });

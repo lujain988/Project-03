@@ -4,10 +4,9 @@ const employeeNameSelect = document.getElementById("employee-name");
 const jopTitle = document.getElementById("jop-title");
 const department = document.getElementById("department");
 const startDate = document.getElementById("startDate");
+const modal = document.getElementById("new-leave-form")
 startDate.value = new Date().toISOString().split("T")[0];
 const leaves = (localStorage.leaves && localStorage.leaves) || [];
-
-
 
 let employeeData;
 async function addEmployeeNamesOptions() {
@@ -42,6 +41,7 @@ employeeNameSelect.addEventListener("change", () => {
   jopTitle.value = employee["Job Title"];
 });
 
+// Add the form data into the local storage
 function crateNewLeave(leave) {
   leaves.push(leave);
   localStorage.leaves = JSON.stringify(leaves);
@@ -58,6 +58,10 @@ addEmployeeForm.addEventListener("submit", (event) => {
     reason: document.getElementById("reason").value,
   };
   crateNewLeave(form);
-  form.reset()
+  // Reset form after submit
+  form.reset();
+  startDate.value = new Date().toISOString().split("T")[0];
 
+  // Close the modal
+  bootstrap.Modal.getInstance(modal).hide();
 });
