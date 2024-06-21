@@ -1,4 +1,5 @@
 const url = "assets/data/employees_data.json";
+const addEmployeeForm = document.getElementById("create-leave-form")
 const employeeNameSelect = document.getElementById("employee-name");
 const jopTitle = document.getElementById("jop-title");
 const department = document.getElementById("department");
@@ -35,3 +36,10 @@ employeeNameSelect.addEventListener("change", () => {
   department.value = employee["Department"];
   jopTitle.value = employee["Job Title"];
 });
+
+addEmployeeForm.addEventListener("submit", event => {
+  event.preventDefault()
+  const formData = new FormData(addEmployeeForm)
+  formData.forEach((key, val)=> console.log(val, key))
+  console.log();
+})

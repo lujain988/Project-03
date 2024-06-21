@@ -25,14 +25,13 @@ th:hover {
 }
 
 .table-container {
-  height: 650px;
-  width: 100%;
-  overflow: auto;
+  th {
+    position: sticky;
+    top: 0;
+  }
+  overflow-y: auto;
   scrollbar-width: none;
-}
-th {
-  position: sticky;
-  top: 0;
+  height: 650px;
 }
 .table-container::-webkit-scrollbar {
   display: none;
@@ -258,4 +257,8 @@ th {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.pointer {
+  cursor: pointer;
 }

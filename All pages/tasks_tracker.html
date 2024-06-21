@@ -119,31 +119,37 @@
         >
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="new-task-formLabel">
-                  Create New Task
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <form>
+              <form id="add-task-form">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="new-task-formLabel">
+                    Create New Task
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
                   <div class="formDiv" id="TaskTitleDiv">
                     <label class="MainLabel" for="TaskTitle">Task Title</label>
-                    <input type="text" id="TaskTitle" placeholder="Type name" />
+                    <input
+                      required
+                      type="text"
+                      id="TaskTitle"
+                      placeholder="Type name"
+                    />
                   </div>
 
                   <div class="formDiv" id="StatusDiv">
                     <label class="MainLabel" for="Status">Status</label>
-                    <select name="Status" id="Status">
-                      <option value="to-do">To-do</option>
+                    <select name="Status" id="Status" required>
+                      <option value="to-do">To do</option>
                       <option value="in-progress">In Progress</option>
                       <option value="completed">Completed</option>
-                      <option value="cancelled">Cancelled</option>
+                      <option value="on-hold">On Hold</option>
+                      <option value="canceled">Canceled</option>
                     </select>
                   </div>
 
@@ -154,8 +160,10 @@
                     <div id="PrioritiesOptions">
                       <div id="HighDiv">
                         <input
+                          required
                           type="radio"
                           name="Priority"
+                          value="high"
                           id="High"
                           class="priorityClass"
                         />
@@ -165,14 +173,18 @@
                         <input
                           type="radio"
                           name="Priority"
+                          value="medium"
                           id="Medium"
                           class="priorityClass"
+                          required
                         />
                         <label for="Medium">Medium</label>
                       </div>
                       <div id="LowDiv">
                         <input
+                          required
                           type="radio"
+                          value="low"
                           name="Priority"
                           id="Low"
                           class="priorityClass"
@@ -184,12 +196,17 @@
 
                   <div class="formDiv" id="StartDateDiv">
                     <label class="MainLabel" for="StartDate">Start Date</label>
-                    <input type="date" name="StartDate" id="StartDate" />
+                    <input
+                      type="date"
+                      name="StartDate"
+                      id="StartDate"
+                      required
+                    />
                   </div>
 
                   <div class="formDiv" id="DueDateDiv">
                     <label class="MainLabel" for="DueDate">Due Date</label>
-                    <input type="date" name="DueDate" id="DueDate" />
+                    <input type="date" name="DueDate" id="DueDate" required />
                   </div>
 
                   <div class="formDiv" id="DescriptionDiv">
@@ -197,6 +214,7 @@
                       >Description</label
                     >
                     <textarea
+                      required
                       name="Description"
                       id="Description"
                       placeholder="Write description of the task and provide example"
@@ -209,33 +227,30 @@
                     >
                     <div id="membersContainer">
                       <select
+                        required
                         name="members"
                         id="AssignMembersSelect"
                         class="select-dropdown"
-                        onchange="addMemberDropdown(this)"
                       >
-                        <option disabled selected>+ Add person</option>
+                        <option value="" disabled selected>+ Add person</option>
                       </select>
+                      <span id="selected-employees"></span>
                     </div>
                   </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  type="button"
-                  data-bs-dismiss="modal"
-                  class="btn btn-primary"
-                >
-                  Save changes
-                </button>
-              </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    Save changes
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -243,7 +258,7 @@
           <div class="header">
             <h1>Task Tracking</h1>
             <button
-              class="btn btn-primary"
+              class="btn btn-primary me-2"
               data-bs-toggle="modal"
               data-bs-target="#new-task-form"
             >
@@ -251,175 +266,40 @@
             </button>
           </div>
           <div class="tasks">
-            <div class="tasks-group backlog">
+            <div class="tasks-group to-do">
               <div class="tasks-group-header">
                 <h5>To do</h5>
-                <span>(2)</span>
+                <span>(0)</span>
               </div>
-              <div class="tasks-container">
-                <div class="task">
-                  <div class="badge text-bg-primary">low</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-                <div class="task">
-                  <div class="badge text-bg-warning">medium</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-                <div class="task">
-                  <div class="badge text-bg-primary">low</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <div class="tasks-container"></div>
             </div>
-            <div class="tasks-group doing">
+            <div class="tasks-group in-progress">
               <div class="tasks-group-header">
                 <h5>In progress</h5>
-                <span>(2)</span>
+                <span>(0)</span>
               </div>
-              <div class="tasks-container">
-                <div class="task">
-                  <div class="badge text-bg-danger">high</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-                <div class="task">
-                  <div class="badge text-bg-primary">low</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <div class="tasks-container"></div>
             </div>
             <div class="tasks-group on-hold">
               <div class="tasks-group-header">
                 <h5>On hold</h5>
-                <span>(2)</span>
+                <span>(0)</span>
               </div>
-              <div class="tasks-container">
-                <div class="task">
-                  <div class="badge text-bg-primary">low</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <div class="tasks-container"></div>
             </div>
-            <div class="tasks-group done">
+            <div class="tasks-group completed">
               <div class="tasks-group-header">
                 <h5>Completed</h5>
-                <span>(2)</span>
+                <span>(0)</span>
               </div>
-              <div class="tasks-container">
-                <div class="task">
-                  <div class="badge text-bg-primary">low</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-                <div class="task">
-                  <div class="badge text-bg-primary">low</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-                <div class="task">
-                  <div class="badge text-bg-primary">low</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <div class="tasks-container"></div>
             </div>
-            <div class="tasks-group archive">
+            <div class="tasks-group canceled">
               <div class="tasks-group-header">
-                <h5>Cancelled</h5>
-                <span>(2)</span>
+                <h5>Canceled</h5>
+                <span>(0)</span>
               </div>
-              <div class="tasks-container">
-                <div class="task">
-                  <div class="badge text-bg-primary">low</div>
-                  <h6 class="task-title">Task title</h6>
-                  <div class="task contant">Do some things</div>
-                  <div class="due-date">
-                    <span class="text-muted"
-                      ><i class="bi bi-calendar-event"></i
-                      ><span class="badge text-bg-secondary mx-2">
-                        Due date Abr, 28</span
-                      >
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <div class="tasks-container"></div>
             </div>
           </div>
         </main>
