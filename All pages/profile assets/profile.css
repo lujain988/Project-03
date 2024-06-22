@@ -179,3 +179,42 @@ table {
 .job-information .item p {
   margin: 5px 0;
 }
+@media only screen and (max-width: 450px) {
+  .education {
+    display: flex;
+    /* gap: 20px; */
+    margin-top: 10px;
+    flex-direction: column;
+  }
+
+  .education div {
+    flex: 1;
+    padding: 10px;
+    background-color: #eeedeb;
+    border-radius: 8px;
+    border: 1px black solid;
+  }
+
+  .job-information .item {
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* gap: 20px; */
+    background-color: #eeedeb;
+    flex-direction: column;
+  }
+
+  .job-information .item p {
+    margin: 3px;
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: stretch;
+  }
+}
