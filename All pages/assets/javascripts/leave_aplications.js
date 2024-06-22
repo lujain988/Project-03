@@ -12,6 +12,19 @@ startDate.value = new Date().toISOString().split("T")[0];
 let leaves = (localStorage.leaves && JSON.parse(localStorage.leaves)) || [];
 const table = document.querySelector("table");
 
+try {
+  let user = JSON.parse(localStorage.loggedInUser);
+} catch (error) {
+  console.warn("Couldn't find the user in the local storage.");
+}
+
+function addAction(action) {
+  let actions =
+    (localStorage.actions && JSON.parse(localStorage.actions)) || [];
+  actions.push({ date: new Date(), action, user });
+  localStorage.actions = JSON.stringify(actions);
+}
+
 // Get the form fields to for easy use.
 let formFields = {
   jopTitle,
@@ -92,7 +105,6 @@ function crateNewLeave(leave) {
 function updateLeave(leave) {
   leave.id = editLeave;
 
-  console.log(leaves);
   leaves = leaves.map((oldLeave) =>
     oldLeave.id === editLeave ? leave : oldLeave
   );
@@ -114,7 +126,6 @@ addEmployeeForm.addEventListener("submit", (event) => {
   if (editMode) {
     editMode = false;
     updateLeave(formData);
-
     bootstrap.Modal.getInstance(modal).hide();
     return;
   }
@@ -185,7 +196,6 @@ try {
       if (input.checked) {
         tableHeadings.push([label.innerText, input.value]);
       } else {
-        console.log(input.value, "heading: ", tableHeadings);
         tableHeadings = tableHeadings.filter((val) => val[1] !== input.value);
       }
       createTable(table, leavesWithEmployeesData, tableHeadings);
@@ -210,7 +220,6 @@ try {
 
 // Populate the form with the leave data
 function populateLeaveForm(leave) {
-  console.log(leave);
   choices.setChoiceByValue(leave.employeeId);
   formFields.jopTitle.value = employeeData.find(
     (employee) => employee["Employee ID"] === leave.employeeId
@@ -227,7 +236,6 @@ function populateLeaveForm(leave) {
 document.addEventListener("click", (event) => {
   // git the parent of the target element
   const target = event.target.parentNode;
-  console.log(target);
   if (target.tagName === "TR") {
     editMode = true;
     editLeave = target.id;
