@@ -29,6 +29,7 @@ nav .menu a {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid;
 }
 
 .profile-header {
@@ -216,5 +217,9 @@ table {
     flex-direction: row;
     flex-wrap: nowrap;
     align-content: stretch;
+  }
+  .profile-details {
+    width: 90%;
+    border: 1px solid;
   }
 }
