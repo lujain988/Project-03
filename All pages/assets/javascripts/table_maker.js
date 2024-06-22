@@ -1,11 +1,30 @@
 // Fill the table with the employees data.
-function populateData(
-  table_body,
-  data,
-  filter,
-  table_heading,
-  sortOption
-) {
+let table_body;
+let data;
+let filter;
+let table_heading;
+let sortOption;
+let table_head;
+
+function filterTable(data_filter) {
+  filter = data_filter;
+  populateData();
+}
+
+function createTable(table, table_data, table_headings) {
+  if (!table || table.tagName !== "TABLE")
+    throw new Error("The provided table is not a table");
+
+  table_body = table.querySelector("tbody");
+  table_head = table.querySelector("thead");
+  data = table_data;
+  table_heading = table_headings;
+
+  createHeadings();
+  populateData();
+}
+
+function populateData() {
   let i = 1;
   let table_data = data;
 
@@ -55,11 +74,12 @@ function createTh(value, sortable) {
   if (sortable)
     th.addEventListener("click", (event) => {
       sortOption = value[1];
-      populateEmployeeData(table_body, data, table_heading, sortOption);
+      populateData();
     });
   return th;
 }
-function createHeadings(table_head, table_heading) {
+
+function createHeadings() {
   let tr = document.createElement("tr");
   table_head.innerHTML = "";
   tr.appendChild(createTh("#"));
@@ -71,4 +91,4 @@ function createHeadings(table_head, table_heading) {
   table_head.appendChild(tr);
 }
 
-export { populateData, createTd, createTh, createHeadings };
+export { populateData, createTable, filterTable };

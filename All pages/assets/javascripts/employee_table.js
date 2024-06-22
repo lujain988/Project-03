@@ -1,15 +1,15 @@
 import {
+  createTable,
   populateData as populateEmployeeData,
-  createHeadings,
+  filterTable,
 } from "./table_maker.js";
 
-let table_body = document.querySelector("#employee-table tbody");
-let table_head = document.querySelector("#employee-table thead");
+let table = document.querySelector("#employee-table");
 let filter;
 let sortOption;
 let data;
 
-// Default table heading
+// Default table heading, you can change them if you please.
 let table_heading = [
   ["ID", "Employee ID"],
   ["Name", "Full Name"],
@@ -17,10 +17,6 @@ let table_heading = [
   ["Job Title", "Job Title"],
   ["Hire Date", "Hire Date"],
 ];
-
-// Make the heading for the table
-
-createHeadings(table_head, table_heading);
 
 // Get the data from the json file.
 async function getData() {
@@ -32,21 +28,21 @@ async function getData() {
 
 await getData();
 
-// Add event to each created head if it is sortable to sort table rows
+// For getting the filter key word from the user and filter the table
 let filterInput = document.getElementById("filter");
-
 try {
   filterInput.addEventListener("input", (e) => {
-    console.log(e);
     filter = filterInput.value.toLowerCase();
-    populateEmployeeData(table_body, data, filter, table_heading, sortOption);
+    filterTable(filter);
   });
 } catch (error) {
   console.warn("Couldn't find the filter for the table.");
 }
 
+// For the choose columns for the employees table
 try {
   let tableColumnsSelector = document.getElementById("employee-table-columns");
+  // Loop over the keys for the employee and add an option for each one
   for (const key in data[0]) {
     const li = document.createElement("li");
     li.className = "dropdown-item";
@@ -67,8 +63,7 @@ try {
       } else {
         table_heading = table_heading.filter((val) => val[1] !== input.value);
       }
-      createHeadings(table_head, table_heading);
-      populateEmployeeData(table_body, data, filter, table_heading, sortOption);
+      createTable(table, data, table_heading);
     });
 
     li.appendChild(input);
@@ -89,4 +84,4 @@ try {
 }
 
 // Add data to the table in the start of the code
-populateEmployeeData(table_body, data, filter, table_heading, sortOption);
+createTable(table, data, table_heading);
