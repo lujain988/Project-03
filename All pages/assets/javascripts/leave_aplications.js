@@ -1,3 +1,4 @@
+import { populateData, createHeadings } from "./table_maker.js";
 const url = "assets/data/employees_data.json";
 const addEmployeeForm = document.getElementById("create-leave-form");
 const employeeNameSelect = document.getElementById("employee-name");
@@ -8,6 +9,7 @@ const modal = document.getElementById("new-leave-form");
 startDate.value = new Date().toISOString().split("T")[0];
 const leaves = (localStorage.leaves && JSON.parse(localStorage.leaves)) || [];
 
+// Get all employee data to put them in the select
 let employeeData;
 async function addEmployeeNamesOptions() {
   if (!employeeData) {
@@ -30,6 +32,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     placeholderValue: "Select Employee",
     shouldSort: false,
   });
+  // For getting the data in the table.
+  const table_body = document.querySelector("table tbody");
+  const table_head = document.querySelector("table thead");
+  let leavesWithEmployeesData = [];
+  for (const leave of leaves) {
+    const employee = employeeData.find(
+      (employee) => employee["Employee ID"] === leave["employeeId"]
+    );
+    // Merge the employee data with the leave application
+    leavesWithEmployeesData.push({
+      ...leave,
+      ...employee,
+    });
+  }
+
+  // Change the this array to change the table columns
+  const tableHeadings = [["Employee", "Full Name"],["leave type", "leaveType"],["reason", "reason"]];
+  createHeadings(table_head, tableHeadings);
+  populateData(table_body, leavesWithEmployeesData, "", tableHeadings);
 });
 
 // Auto fill the employee data in the fields
