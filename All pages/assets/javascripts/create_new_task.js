@@ -1,8 +1,14 @@
+// Link for the employee json
 const url = "assets/data/employees_data.json";
+
 const selectEmployee = document.getElementById("AssignMembersSelect");
 const form = document.getElementById("add-task-form");
 const selectedEmployeesSpan = document.getElementById("selected-employees");
+
+// load the tasks form the localStorage
 let tasks = (localStorage.tasks && JSON.parse(localStorage.tasks)) || [];
+
+// initializing an array to hold the employees assigned to a task
 let selectedEmployees = [];
 let editMode = false;
 let editedTaskId = null;
@@ -12,6 +18,7 @@ let badgeMapper = {
   low: "primary",
 };
 
+// Get the form fields to for easy use.
 const formFields = {
   taskTitle: document.getElementById("TaskTitle"),
   status: document.getElementById("Status"),
@@ -20,7 +27,7 @@ const formFields = {
   description: document.getElementById("Description"),
 };
 
-// initialize the modal
+// initialize the modal so we can show it and close it later.
 const modal = document.getElementById("new-task-form");
 if (!bootstrap.Modal.getInstance(modal)) {
   new bootstrap.Modal(modal);
@@ -29,6 +36,7 @@ if (!bootstrap.Modal.getInstance(modal)) {
 // Set default starting date to be today
 formFields.startDate.value = new Date().toISOString().split("T")[0];
 
+// For selecting multiple employees.
 selectEmployee.addEventListener("change", (event) => {
   // Add the employee to the task
   const employeeName = selectEmployee.value;
@@ -192,7 +200,7 @@ function createTaskCard(task) {
   taskDiv.appendChild(taskTitle);
   taskDiv.appendChild(taskContent);
   taskDiv.appendChild(dueDateDiv);
-  
+
   // Add event listener to the task card for the edit mode
   taskDiv.addEventListener("click", (event) => {
     editMode = true;
