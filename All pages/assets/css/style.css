@@ -33,9 +33,6 @@ th:hover {
   scrollbar-width: none;
   height: 650px;
 }
-.table-container::-webkit-scrollbar {
-  display: none;
-}
 
 .dashboard {
   display: grid;
