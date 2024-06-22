@@ -27,6 +27,15 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <style>
+      .input-box input::placeholder {
+        color: white;
+        opacity: 1;
+      }
+      .input-box input {
+        color: white;
+      }
+    </style>
     <title>project 3 Register</title>
   </head>
   <body>
@@ -95,19 +104,19 @@
           </h4>
           <div class="input-box">
             <input id="userName" type="text" placeholder="User Name " />
-            <i class="bx bxs-user-circle"></i>
+            <i class="bx bxs-user-circle" style="color: white"></i>
             <p class="error"></p>
           </div>
 
           <div class="input-box">
             <input id="email" type="text" placeholder="Email" />
-            <i class="bx bxs-envelope"></i>
+            <i class="bx bxs-envelope" style="color: white"></i>
             <div class="error"></div>
           </div>
 
           <div class="input-box">
             <input id="password" type="password" placeholder="Password" />
-            <i class="bx bx-dialpad-alt"></i>
+            <i class="bx bx-dialpad-alt" style="color: white"></i>
             <div class="error"></div>
           </div>
 
@@ -117,7 +126,7 @@
               type="password"
               placeholder=" Confirm Password"
             />
-            <i class="bx bx-dialpad-alt"></i>
+            <i class="bx bx-dialpad-alt" style="color: white"></i>
             <div class="error"></div>
           </div>
 

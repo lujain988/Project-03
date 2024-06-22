@@ -51,7 +51,7 @@ const setsuccess = (element) => {
   const inputcontrol = element1.parentElement;
   const errordisplay = inputcontrol.querySelector(".error");
 
-  errordisplay.innerText = "Good thing you made that way.";
+  errordisplay.innerText = "";
   errordisplay.classList.add("success");
   errordisplay.classList.remove("showError");
 };
