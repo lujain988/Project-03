@@ -11,6 +11,7 @@ let badgeMapper = {
   medium: "warning",
   low: "primary",
 };
+
 const formFields = {
   taskTitle: document.getElementById("TaskTitle"),
   status: document.getElementById("Status"),
@@ -92,8 +93,14 @@ getData();
 function addTaskToLocalStorage(task) {
   if (editMode) {
     task.id = editedTaskId;
+    let oldTask = tasks[editedTaskId];
+    if (oldTask.status !== task.status) {
+      deleteTaskCard(oldTask);
+      addTaskToPage(task);
+    } else {
+      editTaskCard(task);
+    }
     tasks[editedTaskId] = task;
-    editTaskCard(task);
   } else {
     task.id = tasks.length;
     tasks.push(task);
@@ -106,10 +113,14 @@ function addTaskToLocalStorage(task) {
 
 // Edit the task card
 function editTaskCard(task) {
-  console.log(task);
   const taskCard = document.querySelector(`#task-card-${task.id}`);
   let newTaskCard = createTaskCard(task);
   taskCard.parentNode.replaceChild(newTaskCard, taskCard);
+}
+
+function deleteTaskCard(task) {
+  const taskCard = document.querySelector(`#task-card-${task.id}`);
+  taskCard.remove();
 }
 
 form.addEventListener("submit", (event) => {
@@ -118,12 +129,13 @@ form.addEventListener("submit", (event) => {
   // Get the data from the form
   let taskData = {
     date: new Date().toString(),
-    assignMembersSelect: selectedEmployees,
+    assignMembersSelect: [...new Set(selectedEmployees)],
     priority: document.querySelector('input[name="Priority"]:checked').value,
   };
   Object.keys(formFields).forEach((key) => {
     taskData[key] = formFields[key].value;
   });
+
   addTaskToLocalStorage(taskData);
 
   // Clear form data
@@ -180,6 +192,16 @@ function createTaskCard(task) {
   taskDiv.appendChild(taskTitle);
   taskDiv.appendChild(taskContent);
   taskDiv.appendChild(dueDateDiv);
+  
+  // Add event listener to the task card for the edit mode
+  taskDiv.addEventListener("click", (event) => {
+    editMode = true;
+    editedTaskId = task.id;
+    fillFormWithTaskData(task);
+
+    // Show the modal
+    bootstrap.Modal.getInstance(modal).show();
+  });
 
   return taskDiv;
 }
@@ -191,16 +213,7 @@ function addTaskToPage(task) {
   const taskContainer = tasksGroup.querySelector(".tasks-container");
   const taskGroupHeder = tasksGroup.querySelector(".tasks-group-header span");
   const taskCard = createTaskCard(task);
-  // Add event listener to the task card for the edit mode
-  taskCard.addEventListener("click", (event) => {
-    editMode = true;
-    editedTaskId = task.id;
-    fillFormWithTaskData(task);
 
-    // Show the modal
-
-    bootstrap.Modal.getInstance(modal).show();
-  });
   taskContainer.appendChild(taskCard);
 
   // For the tasks counter in each groupF.
