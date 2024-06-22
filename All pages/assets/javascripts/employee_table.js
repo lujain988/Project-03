@@ -1,12 +1,7 @@
-import {
-  createTable,
-  populateData as populateEmployeeData,
-  filterTable,
-} from "./table_maker.js";
+import { createTable, filterTable } from "./table_maker.js";
 
 let table = document.querySelector("#employee-table");
 let filter;
-let sortOption;
 let data;
 
 // Default table heading, you can change them if you please.
