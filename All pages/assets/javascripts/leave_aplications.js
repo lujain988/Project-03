@@ -1,5 +1,6 @@
 import { createTable, filterTable } from "./table_maker.js";
 let editMode = false;
+let editLeave = null;
 let leavesWithEmployeesData = [];
 const url = "assets/data/employees_data.json";
 const addEmployeeForm = document.getElementById("create-leave-form");
@@ -7,10 +8,26 @@ const employeeNameSelect = document.getElementById("employee-name");
 const jopTitle = document.getElementById("jop-title");
 const department = document.getElementById("department");
 const startDate = document.getElementById("startDate");
-const modal = document.getElementById("new-leave-form");
 startDate.value = new Date().toISOString().split("T")[0];
-const leaves = (localStorage.leaves && JSON.parse(localStorage.leaves)) || [];
+let leaves = (localStorage.leaves && JSON.parse(localStorage.leaves)) || [];
 const table = document.querySelector("table");
+
+// Get the form fields to for easy use.
+let formFields = {
+  jopTitle,
+  department,
+  employeeNameSelect,
+  leaveType: document.getElementById("leaveType"),
+  startDate: document.getElementById("startDate"),
+  endDate: document.getElementById("endDate"),
+  reason: document.getElementById("reason"),
+};
+
+// initialize the modal so we can show it and close it later.
+const modal = document.getElementById("new-leave-form");
+if (!bootstrap.Modal.getInstance(modal)) {
+  new bootstrap.Modal(modal);
+}
 
 let filter = "";
 
@@ -43,9 +60,10 @@ async function addEmployeeNamesOptions() {
 }
 
 // This part for the searchable select. Do not touch it unless you really know what you are doing.
+let choices;
 document.addEventListener("DOMContentLoaded", async function () {
   await addEmployeeNamesOptions();
-  const choices = new Choices(employeeNameSelect, {
+  choices = new Choices(employeeNameSelect, {
     searchEnabled: true,
     placeholderValue: "Select Employee",
     shouldSort: false,
@@ -64,7 +82,20 @@ employeeNameSelect.addEventListener("change", () => {
 
 // Add the form data into the local storage
 function crateNewLeave(leave) {
+  leave.id = String(leaves.length);
   leaves.push(leave);
+  localStorage.leaves = JSON.stringify(leaves);
+  populateLeavesData();
+}
+
+// Update existing leave
+function updateLeave(leave) {
+  leave.id = editLeave;
+
+  console.log(leaves);
+  leaves = leaves.map((oldLeave) =>
+    oldLeave.id === editLeave ? leave : oldLeave
+  );
   localStorage.leaves = JSON.stringify(leaves);
   populateLeavesData();
 }
@@ -73,12 +104,21 @@ addEmployeeForm.addEventListener("submit", (event) => {
   event.preventDefault();
   // Get the data from the form
   const formData = {
-    employeeId: document.getElementById("employee-name").value,
-    leaveType: document.getElementById("leaveType").value,
-    startDate: document.getElementById("startDate").value,
-    endDate: document.getElementById("endDate").value,
-    reason: document.getElementById("reason").value,
+    employeeId: formFields.employeeNameSelect.value,
+    leaveType: formFields.leaveType.value,
+    startDate: formFields.startDate.value,
+    endDate: formFields.endDate.value,
+    reason: formFields.reason.value,
   };
+
+  if (editMode) {
+    editMode = false;
+    updateLeave(formData);
+
+    bootstrap.Modal.getInstance(modal).hide();
+    return;
+  }
+
   crateNewLeave(formData);
   // Reset form after submit
   addEmployeeForm.reset();
@@ -98,7 +138,6 @@ async function margeEmployeeDataWithLeaves() {
     );
     // Merge the employee data with the leave application
     leavesWithEmployeesData.push({
-      id: leavesWithEmployeesData.length,
       ...leave,
       ...employee,
     });
@@ -169,8 +208,31 @@ try {
   );
 }
 
+// Populate the form with the leave data
+function populateLeaveForm(leave) {
+  console.log(leave);
+  choices.setChoiceByValue(leave.employeeId);
+  formFields.jopTitle.value = employeeData.find(
+    (employee) => employee["Employee ID"] === leave.employeeId
+  )["Job Title"];
+  formFields.department.value = employeeData.find(
+    (employee) => employee["Employee ID"] === leave.employeeId
+  )["Department"];
+  formFields.leaveType.value = leave.leaveType;
+  formFields.startDate.value = leave.startDate;
+  formFields.endDate.value = leave.endDate;
+  formFields.reason.value = leave.reason;
+}
+
 document.addEventListener("click", (event) => {
   // git the parent of the target element
-  const target = event.target;
-  console.log(target.parentElement);
+  const target = event.target.parentNode;
+  console.log(target);
+  if (target.tagName === "TR") {
+    editMode = true;
+    editLeave = target.id;
+    let leave = leaves.find((leave) => leave.id === editLeave);
+    populateLeaveForm(leave);
+    bootstrap.Modal.getInstance(modal).show();
+  }
 });
