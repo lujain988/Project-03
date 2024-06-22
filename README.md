@@ -24,7 +24,6 @@ The design of this project was meticulously planned using Figma. You can view th
 ## Technologies Used
 
 - **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Node.js (optional for advanced features)
 - **Database:** JSON (for mock data), MongoDB or any other database for actual implementation
 - **Version Control:** Git
 
