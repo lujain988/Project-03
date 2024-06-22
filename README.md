@@ -58,6 +58,8 @@ The project's progress and task management were organized using Trello. You can 
 - [Duha Odat](https://github.com/DuhaOdat)
 - [Ghayda'a Bdoor](https://github.com/ghaydaabdoor)
 - [Esraa Odat](https://github.com/EsraaOdat)
+- [Yaman Al Khashashneh](https://github.com/ymankh)
+- [Yousef Khrawesh](https://github.com/yousef07791966)
 ---
 
 Thank you for checking out the Mock HR and Task Management System. We hope this project demonstrates our commitment to developing practical and user-friendly applications. If you have any questions or feedback, please feel free to contact us.
