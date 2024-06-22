@@ -63,8 +63,7 @@ try {
       } else {
         table_heading = table_heading.filter((val) => val[1] !== input.value);
       }
-      // createHeadings(table_head, table_heading);
-      populateEmployeeData(table, data, filter, table_heading, sortOption);
+      createTable(table, data, table_heading);
     });
 
     li.appendChild(input);
