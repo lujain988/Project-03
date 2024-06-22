@@ -1,5 +1,11 @@
 // Fill the table with the employees data.
-function populateEmployeeData(table_body, data,filter, table_heading, sortOption) {
+function populateData(
+  table_body,
+  data,
+  filter,
+  table_heading,
+  sortOption
+) {
   let i = 1;
   let table_data = data;
 
@@ -64,9 +70,5 @@ function createHeadings(table_head, table_heading) {
     });
   table_head.appendChild(tr);
 }
-function test(){
-    console.log("test");
-}
 
-export { populateEmployeeData, createTd, createTh, createHeadings, test };
-
+export { populateData, createTd, createTh, createHeadings };

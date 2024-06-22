@@ -1,5 +1,5 @@
 import {
-  populateEmployeeData,
+  populateData as populateEmployeeData,
   createHeadings,
 } from "./table_maker.js";
 
