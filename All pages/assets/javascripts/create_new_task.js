@@ -18,6 +18,27 @@ let badgeMapper = {
   low: "primary",
 };
 
+// Get the user data from the local storage
+try {
+  let user = JSON.parse(localStorage.loggedInUser);
+} catch (error) {
+  console.warn("Couldn't find the user in the local storage.");
+}
+
+// Add the action to the local storage
+function addAction(actionTitle, actionBody) {
+  let actions =
+    (localStorage.actions && JSON.parse(localStorage.actions)) || [];
+  actions.push({
+    id: actions.length,
+    date: new Date(),
+    actionTitle,
+    actionBody,
+    user,
+  });
+  localStorage.actions = JSON.stringify(actions);
+}
+
 // Get the form fields to for easy use.
 const formFields = {
   taskTitle: document.getElementById("TaskTitle"),
@@ -105,6 +126,7 @@ function addTaskToLocalStorage(task) {
     if (oldTask.status !== task.status) {
       deleteTaskCard(oldTask);
       addTaskToPage(task);
+      addAction("Task Updated", "Update the task " + task.taskTitle);
     } else {
       editTaskCard(task);
     }
@@ -113,6 +135,7 @@ function addTaskToLocalStorage(task) {
     task.id = tasks.length;
     tasks.push(task);
     addTaskToPage(task);
+    addAction("Create New Task", "Create the new task " + task.taskTitle);
   }
   localStorage.tasks = JSON.stringify(tasks);
 

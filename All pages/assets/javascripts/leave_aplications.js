@@ -11,17 +11,23 @@ const startDate = document.getElementById("startDate");
 startDate.value = new Date().toISOString().split("T")[0];
 let leaves = (localStorage.leaves && JSON.parse(localStorage.leaves)) || [];
 const table = document.querySelector("table");
-
+let user
 try {
-  let user = JSON.parse(localStorage.loggedInUser);
+  user = JSON.parse(localStorage.loggedInUser);
 } catch (error) {
   console.warn("Couldn't find the user in the local storage.");
 }
 
-function addAction(action) {
+function addAction(actionTitle, actionBody) {
   let actions =
     (localStorage.actions && JSON.parse(localStorage.actions)) || [];
-  actions.push({ date: new Date(), action, user });
+  actions.push({
+    id: actions.length,
+    date: new Date(),
+    actionTitle,
+    actionBody,
+    user,
+  });
   localStorage.actions = JSON.stringify(actions);
 }
 
@@ -98,7 +104,15 @@ function crateNewLeave(leave) {
   leave.id = String(leaves.length);
   leaves.push(leave);
   localStorage.leaves = JSON.stringify(leaves);
+  
   populateLeavesData();
+  addAction(
+    "Create New Leave",
+    "Create a new leave for " +
+      employeeData.find(
+        (employee) => employee["Employee ID"] === leave.employeeId
+      )["Full Name"]
+  );
 }
 
 // Update existing leave
@@ -109,7 +123,15 @@ function updateLeave(leave) {
     oldLeave.id === editLeave ? leave : oldLeave
   );
   localStorage.leaves = JSON.stringify(leaves);
+
   populateLeavesData();
+  addAction(
+    "Leave Updated",
+    "Update the leave for " +
+      employeeData.find(
+        (employee) => employee["Employee ID"] === leave.employeeId
+      )["Full Name"]
+  );
 }
 
 addEmployeeForm.addEventListener("submit", (event) => {
