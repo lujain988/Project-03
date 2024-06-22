@@ -98,6 +98,7 @@ async function margeEmployeeDataWithLeaves() {
     );
     // Merge the employee data with the leave application
     leavesWithEmployeesData.push({
+      id: leavesWithEmployeesData.length,
       ...leave,
       ...employee,
     });

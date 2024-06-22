@@ -48,6 +48,7 @@ function populateData() {
   table_body.innerHTML = "";
   table_data.forEach((element) => {
     let tr = document.createElement("tr");
+    if (element.id) tr.id = element.id;
     let row = [
       createTd(i),
       ...table_heading.map((heading) => createTd(element[heading[1]])),
