@@ -36,9 +36,7 @@ To set up the project locally, follow these steps:
     git clone https://github.com/yourusername/mock-hr-task-management.git
     ```
 2. Navigate to the project directory:
-    ```bash
-    cd mock-hr-task-management
-    ```
+
 3. Open `index.html` in your preferred web browser to view the application.
 
 ## Contributing
