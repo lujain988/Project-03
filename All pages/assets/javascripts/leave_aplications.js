@@ -7,6 +7,7 @@ const department = document.getElementById("department");
 const startDate = document.getElementById("startDate");
 const modal = document.getElementById("new-leave-form");
 startDate.value = new Date().toISOString().split("T")[0];
+let filter="";
 const leaves = (localStorage.leaves && JSON.parse(localStorage.leaves)) || [];
 
 // Get all employee data to put them in the select
@@ -32,25 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     placeholderValue: "Select Employee",
     shouldSort: false,
   });
-  // For getting the data in the table.
-  const table_body = document.querySelector("table tbody");
-  const table_head = document.querySelector("table thead");
-  let leavesWithEmployeesData = [];
-  for (const leave of leaves) {
-    const employee = employeeData.find(
-      (employee) => employee["Employee ID"] === leave["employeeId"]
-    );
-    // Merge the employee data with the leave application
-    leavesWithEmployeesData.push({
-      ...leave,
-      ...employee,
-    });
-  }
-
-  // Change the this array to change the table columns
-  const tableHeadings = [["Employee", "Full Name"],["leave type", "leaveType"],["reason", "reason"]];
-  createHeadings(table_head, tableHeadings);
-  populateData(table_body, leavesWithEmployeesData, "", tableHeadings);
+  populateLeavesData()
 });
 
 // Auto fill the employee data in the fields
@@ -67,6 +50,7 @@ function crateNewLeave(leave) {
   console.log(leaves);
   leaves.push(leave);
   localStorage.leaves = JSON.stringify(leaves);
+  populateLeavesData()
 }
 
 addEmployeeForm.addEventListener("submit", (event) => {
@@ -87,3 +71,33 @@ addEmployeeForm.addEventListener("submit", (event) => {
   // Close the modal
   bootstrap.Modal.getInstance(modal).hide();
 });
+
+function populateLeavesData() {
+  
+  // For getting the data in the table.
+  const table_body = document.querySelector("table tbody");
+  const table_head = document.querySelector("table thead");
+  let leavesWithEmployeesData = [];
+  for (const leave of leaves) {
+    const employee = employeeData.find(
+      (employee) => employee["Employee ID"] === leave["employeeId"]
+    );
+    // Merge the employee data with the leave application
+    leavesWithEmployeesData.push({
+      ...leave,
+      ...employee,
+    });
+  }
+
+  // Change the this array to change the table columns
+  console.log(leavesWithEmployeesData);
+  const tableHeadings = [
+    ["Employee", "Full Name"],
+    ["Leave Type", "leaveType"],
+    ["Reason", "reason"],
+    ["Start Date", "startDate"],
+    ["End Date", "endDate"],
+  ];
+  createHeadings(table_head, tableHeadings);
+  populateData(table_body, leavesWithEmployeesData, filter, tableHeadings);
+}
