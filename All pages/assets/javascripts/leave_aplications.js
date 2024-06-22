@@ -1,4 +1,5 @@
 import { createTable, filterTable } from "./table_maker.js";
+let editMode = false;
 let leavesWithEmployeesData = [];
 const url = "assets/data/employees_data.json";
 const addEmployeeForm = document.getElementById("create-leave-form");
@@ -166,3 +167,9 @@ try {
     "You should add the 'heading option' component in order to add or remove table columns"
   );
 }
+
+document.addEventListener("click", (event) => {
+  // git the parent of the target element
+  const target = event.target;
+  console.log(target.parentElement);
+});

@@ -2,9 +2,15 @@ const url = "assets/data/employees_data.json";
 const selectEmployee = document.getElementById("AssignMembersSelect");
 const form = document.getElementById("add-task-form");
 const selectedEmployeesSpan = document.getElementById("selected-employees");
-const modal = document.getElementById("new-task-form");
 let tasks = (localStorage.tasks && JSON.parse(localStorage.tasks)) || [];
 let selectedEmployees = [];
+let editMode = false;
+let editedTaskId = null;
+let badgeMapper = {
+  high: "danger",
+  medium: "warning",
+  low: "primary",
+};
 const formFields = {
   taskTitle: document.getElementById("TaskTitle"),
   status: document.getElementById("Status"),
@@ -13,12 +19,22 @@ const formFields = {
   description: document.getElementById("Description"),
 };
 
+// initialize the modal
+const modal = document.getElementById("new-task-form");
+if (!bootstrap.Modal.getInstance(modal)) {
+  new bootstrap.Modal(modal);
+}
+
 // Set default starting date to be today
 formFields.startDate.value = new Date().toISOString().split("T")[0];
 
 selectEmployee.addEventListener("change", (event) => {
   // Add the employee to the task
   const employeeName = selectEmployee.value;
+  selectEmployeeToTheTask(employeeName);
+});
+
+function selectEmployeeToTheTask(employeeName) {
   selectedEmployees.push(employeeName);
 
   // Create a badge to display the selected employee
@@ -41,7 +57,6 @@ selectEmployee.addEventListener("change", (event) => {
 
     // Unhide the employee option
     const option = document.querySelector(`option[value="${employeeName}"]`);
-    console.log(option);
     option.style.display = "";
   });
 
@@ -51,7 +66,7 @@ selectEmployee.addEventListener("change", (event) => {
   // Hide the selected option after choosing it.
   const option = document.querySelector(`option[value="${employeeName}"]`);
   option.style.display = "none";
-});
+}
 
 // Get the employee data from the Json file
 async function getData() {
@@ -75,11 +90,26 @@ async function getData() {
 getData();
 
 function addTaskToLocalStorage(task) {
-  tasks.push(task);
+  if (editMode) {
+    task.id = editedTaskId;
+    tasks[editedTaskId] = task;
+    editTaskCard(task);
+  } else {
+    task.id = tasks.length;
+    tasks.push(task);
+    addTaskToPage(task);
+  }
   localStorage.tasks = JSON.stringify(tasks);
 
   // Display the new task on the page.
-  addTaskToPage(task);
+}
+
+// Edit the task card
+function editTaskCard(task) {
+  console.log(task);
+  const taskCard = document.querySelector(`#task-card-${task.id}`);
+  let newTaskCard = createTaskCard(task);
+  taskCard.parentNode.replaceChild(newTaskCard, taskCard);
 }
 
 form.addEventListener("submit", (event) => {
@@ -97,21 +127,21 @@ form.addEventListener("submit", (event) => {
   addTaskToLocalStorage(taskData);
 
   // Clear form data
-  form.reset();
-  formFields.startDate.value = new Date().toISOString().split("T")[0];
-  selectedEmployeesSpan.innerHTML = "";
+  restForm();
   bootstrap.Modal.getInstance(modal).hide();
 });
 
-function createTaskCard(task) {
-  let badgeMapper = {
-    high: "danger",
-    medium: "warning",
-    low: "primary",
-  };
+// reset form
+function restForm() {
+  form.reset();
+  formFields.startDate.value = new Date().toISOString().split("T")[0];
+  selectedEmployeesSpan.innerHTML = "";
+}
 
+function createTaskCard(task) {
   let taskDiv = document.createElement("div");
   taskDiv.className = "task";
+  taskDiv.id = `task-card-${task.id}`;
 
   // Create the badge
   let badgeDiv = document.createElement("div");
@@ -161,11 +191,33 @@ function addTaskToPage(task) {
   const taskContainer = tasksGroup.querySelector(".tasks-container");
   const taskGroupHeder = tasksGroup.querySelector(".tasks-group-header span");
   const taskCard = createTaskCard(task);
+  // Add event listener to the task card for the edit mode
+  taskCard.addEventListener("click", (event) => {
+    editMode = true;
+    editedTaskId = task.id;
+    fillFormWithTaskData(task);
+
+    // Show the modal
+
+    bootstrap.Modal.getInstance(modal).show();
+  });
   taskContainer.appendChild(taskCard);
 
-  // For the tasks counter in each group.
+  // For the tasks counter in each groupF.
   const taskCounter = taskGroupHeder.textContent.replace(/[^\d]/g, "");
   taskGroupHeder.textContent = `(${+taskCounter + 1})`;
+}
+
+function fillFormWithTaskData(task) {
+  formFields.taskTitle.value = task.taskTitle;
+  formFields.status.value = task.status;
+  formFields.startDate.value = task.startDate;
+  formFields.dueDate.value = task.dueDate;
+  formFields.description.value = task.description;
+  document.querySelector(`input[value="${task.priority}"]`).checked = true;
+  task.assignMembersSelect.forEach((employeeName) => {
+    selectEmployeeToTheTask(employeeName);
+  });
 }
 
 // Load all tasks on page load
@@ -173,3 +225,9 @@ tasks.forEach((task) => {
   addTaskToPage(task);
 });
 
+// reset form when modal is closed
+modal.addEventListener("hidden.bs.modal", () => {
+  restForm();
+  editMode = false;
+  editedTaskId = null;
+});
