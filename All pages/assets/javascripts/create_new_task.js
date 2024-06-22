@@ -19,8 +19,9 @@ let badgeMapper = {
 };
 
 // Get the user data from the local storage
+let user 
 try {
-  let user = JSON.parse(localStorage.loggedInUser);
+  user = JSON.parse(localStorage.loggedInUser);
 } catch (error) {
   console.warn("Couldn't find the user in the local storage.");
 }

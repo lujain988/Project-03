@@ -92,7 +92,7 @@ function createActionCard(action) {
 
   // Create the img element
   const img = document.createElement("img");
-  img.src = "assets/images/profile_avatar.jpg";
+  img.src = action.user.img? action.user.img : "assets/images/profile_avatar.jpg";
   img.alt = "profile img";
 
   // Append img to avatar div
