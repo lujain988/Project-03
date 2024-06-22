@@ -1,4 +1,5 @@
 const xxx = JSON.parse(localStorage.getItem("loggedInUser"));
+
 const Oldemail = xxx.email;
 
 // Validate Name
@@ -114,6 +115,12 @@ function validateConfirmPassword() {
   }
 }
 
+// النص المشفر Base64
+let encodedPassword = "MTIzQWJjJiY=";
+
+// فك التشفير إلى النص الأصلي
+let decodedPassword = atob(encodedPassword);
+
 // Save Profile
 document.addEventListener("DOMContentLoaded", function () {
   loadProfileForEdit();
@@ -147,6 +154,11 @@ function saveProfile(event) {
     if (newPassword.value !== "" && confirmPassword.value !== "") {
       isCurrentPasswordValid = validateCurrentPassword();
     }
+
+    // if (!isCurrentPasswordValid) {
+    //     alert('Current password is required to update password.');
+    //     return;
+    // }
   }
 
   // Validate all fields
@@ -161,48 +173,67 @@ function saveProfile(event) {
       const fullName = profileName.value.split(" ");
       const email = profileEmail.value;
       const phone = profilePhone.value;
+      // const profilePhoto = document.getElementById("profilePhotoPreview").src;
 
       const firstName = fullName[0];
       const lastName = fullName[1];
 
       // Retrieve existing profile data
-      const usersData = JSON.parse(localStorage.getItem("usersData")) || [];
-      const existingProfileDataIndex = usersData.findIndex(
-        (user) => user.email === Oldemail
-      );
-
-      if (existingProfileDataIndex === -1) {
-        throw new Error("User not found in usersData");
-      }
+      const existingProfileData =
+        JSON.parse(localStorage.getItem("profileData")) || {};
 
       // Update personal information
-      usersData[existingProfileDataIndex].userName = `${firstName} ${lastName}`;
-      usersData[existingProfileDataIndex].email = email;
-      usersData[existingProfileDataIndex].phone = phone;
+      const updatedPersonalInformation = {
+        ...existingProfileData.personal_information,
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        phone: phone,
+        // profile_photo: profilePhoto
+      };
+
+      // Merge updated personal information with existing profile data
+      const updatedProfileData = {
+        ...existingProfileData,
+        personal_information: updatedPersonalInformation,
+      };
+
+      // Save updated profile data to localStorage
+      localStorage.setItem("profileData", JSON.stringify(updatedProfileData));
+
+      // Update loggedInUser data
+      const loggedInUser =
+        JSON.parse(localStorage.getItem("loggedInUser")) || {};
+      loggedInUser.userName = profileName.value;
+      loggedInUser.email = profileEmail.value;
 
       // Check if new password is entered
       const newPasswordValue = newPassword.value.trim();
       if (newPasswordValue !== "") {
         const encodedNewPassword = btoa(newPasswordValue); // Encrypt new password with Base64
-        usersData[existingProfileDataIndex].password = encodedNewPassword;
-      }
-
-      // Save updated usersData to localStorage
-      localStorage.setItem("usersData", JSON.stringify(usersData));
-
-      // Update loggedInUser data
-      const loggedInUser = {
-        ...JSON.parse(localStorage.getItem("loggedInUser")),
-        userName: profileName.value,
-        email: profileEmail.value,
-        phone: profilePhone.value,
-      };
-
-      if (newPasswordValue !== "") {
-        loggedInUser.password = btoa(newPasswordValue); // Encrypt new password with Base64
+        loggedInUser.password = encodedNewPassword;
       }
 
       localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+
+      // Retrieve usersData from local storage
+      const usersData = JSON.parse(localStorage.getItem("usersData")) || [];
+      console.log(usersData);
+
+      console.log(loggedInUser);
+      // Update the user's information in usersData
+      for (let i = 0; i < usersData.length; i++) {
+        if (usersData[i].email === Oldemail) {
+          usersData[i].userName = loggedInUser.userName;
+          usersData[i].password = loggedInUser.password;
+          usersData[i].email = loggedInUser.email;
+
+          // Save the updated usersData back to local storage
+          localStorage.setItem("usersData", JSON.stringify(usersData));
+          // alert("تم تحديث المعلومات بنجاح!");
+          break; // نتوقف بمجرد العثور على المستخدم
+        }
+      }
 
       alert("Profile saved successfully!");
     } catch (error) {
@@ -216,16 +247,25 @@ function saveProfile(event) {
 
 function loadProfileForEdit() {
   try {
-    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (!loggedInUser) {
-      console.error("No logged in user found in localStorage.");
+    const profileData = localStorage.getItem("profileData");
+    if (!profileData) {
+      console.error("No profile data found in localStorage.");
       return;
     }
 
-    // Populate form fields with logged in user data
-    profileName.value = loggedInUser.userName;
-    profileEmail.value = loggedInUser.email;
-    profilePhone.value = loggedInUser.phone || ""; // Add this line
+    const user = JSON.parse(profileData);
+
+    // استرجاع المعلومات من local storage
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    // تحويل النص إلى كائن JSON
+    const userObject = JSON.parse(loggedInUser);
+
+    // Populate form fields with profile data
+    profileName.value = userObject.userName;
+    profileEmail.value = userObject.email;
+    // profilePhone.value = user.personal_information.phone;
+    // profilePhotoPreview.src = user.personal_information.profile_photo;
   } catch (error) {
     console.error("Error loading profile data for edit:", error);
   }
@@ -233,21 +273,32 @@ function loadProfileForEdit() {
 
 function loadSavedProfileData() {
   try {
-    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (!loggedInUser) {
-      console.error("No logged in user found in localStorage.");
+    const profileData = localStorage.getItem("profileData");
+    if (!profileData) {
+      console.error("No profile data found in localStorage.");
       return;
     }
 
-    // Populate form fields with logged in user data
-    profileName.value = loggedInUser.userName;
-    profileEmail.value = loggedInUser.email;
-    profilePhone.value = loggedInUser.phone || ""; // Add this line
+    const user = JSON.parse(profileData);
+
+    // استرجاع المعلومات من local storage
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    // تحويل النص إلى كائن JSON
+    const userObject = JSON.parse(loggedInUser);
+
+    // Populate form fields with profile data
+    profileName.value = userObject.userName;
+
+    profileEmail.value = userObject.email;
+    profilePhone.value = user.personal_information.phone;
+    // var profilePhotoPreview = document.getElementById('profilePhotoPreview');
+    // profilePhotoPreview.src = user.personal_information.profile_photo;
   } catch (error) {
     console.error("Error loading profile data for edit:", error);
   }
 }
 
 function cancelEdit() {
-  window.location.href = "./Profile.html"; // Adjust based on your actual profile page filename
+  window.location.href = "Profile.html"; // Adjust based on your actual profile page filename
 }
