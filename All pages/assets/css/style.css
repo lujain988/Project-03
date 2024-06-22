@@ -100,7 +100,7 @@ th:hover {
 @media only screen and (max-width: 768px) {
   .dashboard {
     display: grid;
-    grid-template-columns: 87px calc(100vw - 87px);
+    grid-template-columns: 87px calc(100vw - 97px);
     gap: 10px;
     min-height: 100vh;
   }
@@ -122,10 +122,18 @@ th:hover {
 }
 
 .cards {
-  margin: 10px;
+  padding: 10px;
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+@media only screen and (max-width: 450px) {
+  .cards {
+    padding: 5px;
+    grid-template-columns: 300px;
+  }
+  .table-taps {
+  }
 }
 
 .icon {
@@ -246,6 +254,14 @@ th:hover {
   justify-content: space-between;
 }
 
+@media only screen and (max-width: 520px) {
+  .table-taps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: baseline;
+  }
+}
+
 .table-taps > input {
   width: 150px;
 }
@@ -254,6 +270,7 @@ th:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 }
 
 .pointer {
