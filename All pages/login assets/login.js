@@ -40,17 +40,22 @@ loginForm.addEventListener("submit", function (event) {
         // Set loggedIn status to true upon successful login
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("userEmail", userEmail); // Store user email for later retrieval
-        localStorage.setItem("message", `Hello, ${loggedInUser.userName}! Welcome here!`);
+        localStorage.setItem(
+          "message",
+          `Hello, ${loggedInUser.userName}! Welcome here!`
+        );
 
         // Proceed with successful login actions here
-        delete loggedInUser.password;
+        // delete loggedInUser.password;
         localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
         window.location.href = "../../index.html";
       } else {
-        document.querySelector(".login-error").innerText = " Please check your email, password or both";
+        document.querySelector(".login-error").innerText =
+          " Please check your email, password or both";
       }
     } else {
-      document.querySelector(".login-error").innerText = "User not found, please check your email or register to continue";
+      document.querySelector(".login-error").innerText =
+        "User not found, please check your email or register to continue";
     }
   } else {
     console.log("No users data in localStorage");
