@@ -47,6 +47,19 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 This project is licensed under the MIT License.
 
+## Project Management
+
+The project's progress and task management were organized using Trello. You can view the Trello board to see the project's workflow and task assignments:  
+[Trello Board](https://trello.com/b/Hth8rRZd/project3)
+
+## Contributors
+
+- [Lujain Alazzam](https://github.com/lujain988)
+- [Duha Odat](https://github.com/DuhaOdat)
+- [Ghayda'a Bdoor](https://github.com/ghaydaabdoor)
+- [Esraa Odat](https://github.com/EsraaOdat)
+- [Yaman Al Khashashneh](https://github.com/ymankh)
+- [Yousef Khrawesh](https://github.com/yousef07791966)
 ---
 
 Thank you for checking out the Mock HR and Task Management System. We hope this project demonstrates our commitment to developing practical and user-friendly applications. If you have any questions or feedback, please feel free to contact us.

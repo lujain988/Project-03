@@ -1,4 +1,6 @@
+
 document.addEventListener("DOMContentLoaded", () => {
+  
   // Check the login status on page load
   const isLoggedIn = localStorage.getItem("loggedIn") === "true";
   checkLoginStatus(isLoggedIn);
@@ -13,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.removeItem("message");
     toastBootstrap.show();
   }
-
   // Retrieve and log user information if available
   if (localStorage.usersData && localStorage.userEmail) {
     let user = JSON.parse(localStorage.usersData).find(
