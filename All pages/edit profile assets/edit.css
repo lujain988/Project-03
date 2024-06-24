@@ -29,6 +29,7 @@ nav .menu a {
 }
 .card {
     border-radius: 10px;
+    
     border: #59585a solid 1px;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
@@ -59,11 +60,20 @@ nav .menu a {
 
 
 .btn-primary {
-    background-color: #6d31ed;
+    background-color: #4291af;
+    color: #ffffff;
+    padding: 10px 20px;
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 
+  .btn-primary :hover {
+    background-color: white;
+    color: #4291af;
+    font-weight: bold;
+  }
 
 
 

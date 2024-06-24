@@ -173,6 +173,7 @@
                 type="password"
                 class="form-control"
                 id="currentPassword"
+                
               />
               <div id="currentPasswordError" class="text-danger"></div>
             </div>
@@ -185,30 +186,15 @@
 
             <div class="form-group">
               <label for="confirmPassword">Confirm New Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="confirmPassword"
-              />
+              <input type="password" class="form-control"  id="confirmPassword"/>
               <div id="confirmPasswordError" class="text-danger"></div>
             </div>
 
             <div class="form-group text-right">
               <button
-                type="submit"
-                class="btn btn-primary"
-                onclick="window.location.href='Profile.html'"
-              >
-                Save Changes
-              </button>
+                type="submit" class="btn btn-primary" onclick="window.location.href='Profile.html'"  > Save Changes </button>
 
-              <button
-                type="button"
-                class="btn btn-secondary"
-                onclick="cancelEdit()"
-              >
-                Cancel
-              </button>
+              <button  type="button"   class="btn btn-secondary"   onclick="cancelEdit()" >   Cancel  </button>
             </div>
           </form>
         </div>
