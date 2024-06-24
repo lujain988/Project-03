@@ -1,10 +1,10 @@
 // Fill the table with the employees data.
 let table_body;
+let table_head;
 let data;
 let filter;
 let table_heading;
 let sortOption;
-let table_head;
 
 function filterTable(data_filter) {
   filter = data_filter;
@@ -30,9 +30,9 @@ function populateData() {
 
   // Filter the data filter word has been provided
   if (filter)
-    table_data = data.filter((employee) =>
+    table_data = data.filter((value) =>
       table_heading
-        .map((heading) => employee[heading[1]])
+        .map((heading) => value[heading[1]])
         .some((value) => String(value).toLocaleLowerCase().includes(filter))
     );
 
@@ -42,7 +42,7 @@ function populateData() {
       if (sortOption === "Hire Date")
         return new Date(b["Hire Date"]) - new Date(a["Hire Date"]);
       if (a[sortOption] < b[sortOption]) return -1;
-      if (a[sortOption] > b[sortOption]) return 1;
+      if (a[sortOption] >= b[sortOption]) return 1;
     });
   //  clean the table body before inserting the data
   table_body.innerHTML = "";
