@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     accordionItem.innerHTML = `
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#${collapseId}" >
+                    data-bs-target="#${collapseId}" style="font-weight: bold;">
                     ${item.head}
                 </button>
             </h2>
