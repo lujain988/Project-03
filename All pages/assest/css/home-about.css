@@ -448,7 +448,7 @@ ul {
   max-height: none; /* Removes any maximum height limit */
   object-fit: cover; /* Ensures the image covers the container proportionally */
 }
-p{
+.big-font{
   font-size: 18px;
 }
 /*** Team Start ***/
