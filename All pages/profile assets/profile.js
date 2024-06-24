@@ -62,15 +62,15 @@ function updateProfile(user) {
   document.getElementById("profileCity").innerText =
     user.personal_information.city;
 
-  const educationContainer = document.getElementById("profileEducation");
-  educationContainer.innerHTML = "";
-
-  user.education.forEach((edu) => {
-    const eduDiv = document.createElement("div");
-    eduDiv.innerHTML = `<span>${edu.date}</span><p>${edu.description}</p>`;
-    educationContainer.appendChild(eduDiv);
-  });
-
+    const educationContainer = document.getElementById("profileEducation");
+    educationContainer.innerHTML = "";
+    
+    user.education.reverse().forEach((edu) => {
+      const eduDiv = document.createElement("div");
+      eduDiv.innerHTML = `<span>${edu.date}</span><p>${edu.description}</p>`;
+      educationContainer.appendChild(eduDiv);
+    });
+    
   document.getElementById("jobTitle").innerText = user.job.job_title;
   document.getElementById("jobTitle1").innerText = user.job.job_title;
   document.getElementById("department").innerText = user.job.department;

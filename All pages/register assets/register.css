@@ -15,13 +15,14 @@
   background-position: center;
 }
 .login {
-  width: 510px;
+  width: 600px;
   background: transparent;
   border: 2px solid rgb(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   color: #000000;
   border-radius: 12px;
-  padding: 30px 40px;
+  padding: 15px 15px;
+  margin: 65px auto;
 }
 .login span {
   color: #2a0cd5db;
@@ -30,6 +31,7 @@
 .login h1 {
   font-size: 36px;
   text-align: center;
+  margin: 0;
 }
 .login .input-box {
   position: relative;
@@ -55,7 +57,6 @@
 }
 .input-box i {
   position: absolute;
-  /* right: 2px; */
   top: 30%;
   transform: translate(-50px);
   font-size: 20px;
@@ -67,7 +68,6 @@
   margin: -15px 0 15px;
 }
 .remember-forgot label input {
-  /* accent-color: #05ed09; */
   margin-right: 3px;
 }
 .remember-forgot a {
