@@ -19,29 +19,25 @@ let now = new Date();
 let count = tasks.filter(
   ({ status, date }) => status === "on-hold" && now - new Date(date) < 86400000
 ).length;
-document.getElementById(
-  "on-hold-since-yesterday"
-).innerText = `+${count} since yesterday`;
+document.getElementById("on-hold-since-yesterday").innerText =
+  count > 0 ? `+${count} since yesterday` : "";
 count = tasks.filter(
   ({ status, date }) => status === "to-do" && now - new Date(date) < 86400000
 ).length;
-document.getElementById(
-  "to-do-since-yesterday"
-).innerText = `+${count} since yesterday`;
+document.getElementById("to-do-since-yesterday").innerText =
+  count > 0 ? `+${count} since yesterday` : "";
 count = tasks.filter(
   ({ status, date }) =>
     status === "in-progress" && now - new Date(date) < 86400000
 ).length;
-document.getElementById(
-  "in-progress-since-yesterday"
-).innerText = `+${count} since yesterday`;
+document.getElementById("in-progress-since-yesterday").innerText =
+  count > 0 ? `+${count} since yesterday` : "";
 count = tasks.filter(
   ({ status, date }) =>
     status === "completed" && now - new Date(date) < 86400000
 ).length;
-document.getElementById(
-  "completed-since-yesterday"
-).innerText = `+${count} since yesterday`;
+document.getElementById("completed-since-yesterday").innerText =
+  count > 0 ? `+${count} since yesterday` : "";
 
 function getTimeDifference(date1, date2) {
   const msPerMinute = 60 * 1000;
@@ -92,7 +88,9 @@ function createActionCard(action) {
 
   // Create the img element
   const img = document.createElement("img");
-  img.src = action.user.img? action.user.img : "assets/images/profile_avatar.jpg";
+  img.src = action.user.img
+    ? action.user.img
+    : "assets/images/profile_avatar.jpg";
   img.alt = "profile img";
 
   // Append img to avatar div
@@ -108,7 +106,8 @@ function createActionCard(action) {
   // Create the text-muted div
   const timeDiv = document.createElement("div");
   timeDiv.className = "text-muted";
-  timeDiv.textContent = getTimeDifference(new Date(action.date), new Date()) + " ago";
+  timeDiv.textContent =
+    getTimeDifference(new Date(action.date), new Date()) + " ago";
 
   // Append userName and timeDiv to userInfoDiv
   userInfoDiv.appendChild(userName);
@@ -117,7 +116,6 @@ function createActionCard(action) {
   // Append avatarDiv and userInfoDiv to userDiv
   userDiv.appendChild(avatarDiv);
   userDiv.appendChild(userInfoDiv);
-
   // Create the action container div
   const actionContainerDiv = document.createElement("div");
   actionContainerDiv.className = "user mt-2";
@@ -158,6 +156,7 @@ function createActionCard(action) {
 
 let activity_section = document.getElementById("recent-activities");
 let actions = (localStorage.actions && JSON.parse(localStorage.actions)) || [];
+actions.sort((a, b) => b.date - a.date);
 
 actions.forEach((action) => {
   let action_card = createActionCard(action);

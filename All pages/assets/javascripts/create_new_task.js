@@ -276,3 +276,11 @@ modal.addEventListener("hidden.bs.modal", () => {
   editMode = false;
   editedTaskId = null;
 });
+
+modal.addEventListener("show.bs.modal", () => {
+  if (editMode) {
+    document.getElementById("new-task-formLabel").innerText = "Edit Task";
+  } else {
+    document.getElementById("new-task-formLabel").innerText = "Add Task";
+  }
+});

@@ -11,7 +11,7 @@ const startDate = document.getElementById("startDate");
 startDate.value = new Date().toISOString().split("T")[0];
 let leaves = (localStorage.leaves && JSON.parse(localStorage.leaves)) || [];
 const table = document.querySelector("table");
-let user
+let user;
 try {
   user = JSON.parse(localStorage.loggedInUser);
 } catch (error) {
@@ -104,7 +104,7 @@ function crateNewLeave(leave) {
   leave.id = String(leaves.length);
   leaves.push(leave);
   localStorage.leaves = JSON.stringify(leaves);
-  
+
   populateLeavesData();
   addAction(
     "Create New Leave",
@@ -149,12 +149,13 @@ addEmployeeForm.addEventListener("submit", (event) => {
     editMode = false;
     updateLeave(formData);
     bootstrap.Modal.getInstance(modal).hide();
+    resetForm();
     return;
   }
 
   crateNewLeave(formData);
-  // Reset form after submit
-  addEmployeeForm.reset();
+  resetForm();
+
   startDate.value = new Date().toISOString().split("T")[0];
 
   // Close the modal
@@ -182,6 +183,15 @@ async function populateLeavesData() {
   leavesWithEmployeesData = [];
   await margeEmployeeDataWithLeaves();
   createTable(table, leavesWithEmployeesData, tableHeadings);
+  for (const tr of document.getElementsByTagName("tr")) {
+    if (tr.id) {
+      tr.appendChild(createEditButtons());
+    }
+    else{
+      let th = document.createElement("th");
+      tr.appendChild(th);
+    }
+  }
 }
 
 // For filtering
@@ -266,3 +276,41 @@ document.addEventListener("click", (event) => {
     bootstrap.Modal.getInstance(modal).show();
   }
 });
+
+modal.addEventListener("show.bs.modal", () => {
+  if (editMode) {
+    document.getElementById("new-leave-formLabel").innerText = "Edit Leave";
+  } else {
+    document.getElementById("new-leave-formLabel").innerText = "Add Leave";
+  }
+});
+
+// reset the form when the modal is closed
+modal.addEventListener("hidden.bs.modal", () => {
+  editMode = false;
+  resetForm();
+});
+
+function resetForm() {
+  formFields.leaveType.value = "";
+  formFields.startDate.value = new Date().toISOString().split("T")[0];
+  formFields.endDate.value = "";
+  formFields.reason.value = "";
+  formFields.jopTitle.value = "";
+  formFields.department.value = "";
+  choices.setChoiceByValue("");
+}
+
+
+// Add the buttons to the table
+function createEditButtons() {
+  const editButton = document.createElement("button");
+  editButton.className = "btn btn-primary";
+  editButton.textContent = "Edit";
+  editButton.addEventListener("click", () => {
+    bootstrap.Modal.getInstance(modal).show();
+  });
+  let td = document.createElement("td")
+  td.appendChild(editButton);
+  return td;
+}
