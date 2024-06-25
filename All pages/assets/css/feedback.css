@@ -32,10 +32,6 @@ h1 {
   transition: transform 0.3s;
 }
 
-.FullCard:hover {
-  /* transform: translateY(-10px); */
-}
-
 .FullCard img {
   width: 50%;
   height: 100%;
@@ -51,9 +47,9 @@ h1 {
   position: absolute;
   top: 0;
   left: 70%;
-  width: 50%;
+  width: 70%;
   height: 100%;
-  padding: 10px 20px;
+  padding: 20px;
   background: rgba(66, 145, 175, 0.85);
   color: #fff;
   display: flex;
@@ -74,16 +70,8 @@ h1 {
   font-weight: bold;
   border-bottom: 2px solid #fff;
   padding-bottom: 5px;
-  margin-bottom: 10px;
+  margin-top: 40px;
 }
-
-/* .FeedbackText h4 {
-  margin: 0 0 10px;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding-bottom: 5px;
-} */
 
 .FeedbackText p {
   margin: 0px;

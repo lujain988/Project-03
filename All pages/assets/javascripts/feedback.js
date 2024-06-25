@@ -1,59 +1,59 @@
 function createCard() {
-  // Get the array of entries from local storage
   var entries = JSON.parse(localStorage.getItem("feedbackEntries")) || [];
+  var emailToCardsMap = {}; // Map email to an array of cards (if any)
+  var feedbackContainer = document.getElementById("feedbackContainer");
 
-  // Loop through each entry in the array
+  // Clear existing content in feedback container
+  feedbackContainer.innerHTML = '';
+
   entries.forEach(function (entry) {
-    let divCard = document.createElement("div");
-    let imgCard = document.createElement("img");
-    let divLeft = document.createElement("div");
-    let h3Left = document.createElement("h3");
-    let pLeft = document.createElement("p");
+    var email = entry.Email;
 
-    let divRight = document.createElement("div");
-    let pRightFirst = document.createElement("p");
-    let aRight = document.createElement("a");
-    let pEmail = document.createElement("p");
-    let pRightSecond = document.createElement("p");
+    // Check if an existing card already displays feedback from this email
+    if (emailToCardsMap[email]) {
+      // Append new feedback to the existing card
+      var card = emailToCardsMap[email][0]; // Get the first card
+      var feedbackText = document.createElement("p");
+      feedbackText.innerHTML = `<strong>Subject:</strong> ${entry.Subject}<br>${entry.Message}`;
+      card.querySelector('.FeedbackText').appendChild(feedbackText);
+      document.querySelector('.FeedbackText').style.paddingTop='30px';
+    } else {
+      // Create a new card
+      var card = document.createElement("div");
+      card.className = "FullCard";
 
-    // Set class names for styling
-    divCard.className = "FullCard";
-    divLeft.className = "FeedbackText";
-    divRight.className = "CardTitles";
-    pRightSecond.className = "dateNN";
-    pEmail.className = "email";
+      // Profile image
+      var profileImage = document.createElement("img");
+      profileImage.src = entry.Gender === "Female" ? "assets/images/female.jpg" : "assets/images/male.jpg";
+      profileImage.alt = "Profile Image";
+      card.appendChild(profileImage);
 
-    // Set image source based on gender
-    imgCard.src = entry.Gender == "Male" ? "assets/images/male.jpg" : "assets/images/female.jpg";
+      // Feedback text
+      var feedbackText = document.createElement("div");
+      feedbackText.className = "FeedbackText";
+      feedbackText.innerHTML = `<h3>${entry.Subject}</h3>
+                                <p>${entry.Message}</p>`;
+      card.appendChild(feedbackText);
 
-    // Assign alt text to the image
-    imgCard.alt = "Profile Image";
+      // Card titles
+      var cardTitles = document.createElement("div");
+      cardTitles.className = "CardTitles";
+      cardTitles.innerHTML = `<p>${entry.Name}</p>
+                              <a href="#">${entry.Title}</a>
+                              <p class="email">${entry.Email}</p>
+                              <p class="dateNN">${new Date(entry.Date).toLocaleString()}</p>`;
+      card.appendChild(cardTitles);
 
-    // Append image to the card
-    divCard.appendChild(imgCard);
+      // Add the card to the feedback container
+      feedbackContainer.appendChild(card);
 
-    // Fill the left section with data from the entry
-    h3Left.textContent = entry.Subject;
-    pLeft.textContent = entry.Message;
-    divLeft.appendChild(h3Left);
-    divLeft.appendChild(pLeft);
-
-    // Fill the right section with data from the entry
-    pRightFirst.textContent = entry.Name;
-    aRight.textContent = entry.Title;
-    pEmail.textContent = entry.Email;
-    pRightSecond.textContent = new Date(entry.Date).toLocaleString();
-
-    divRight.appendChild(pRightFirst);
-    divRight.appendChild(aRight);
-    divRight.appendChild(pEmail);
-    divRight.appendChild(pRightSecond);
-    divCard.appendChild(divLeft);
-    divCard.appendChild(divRight);
-    // Append the card to the container
-    document.getElementById("feedbackContainer").appendChild(divCard);
+      // Map email to this newly created card
+      emailToCardsMap[email] = [card]; // Initialize with an array containing this card
+    }
   });
 }
 
-// Call createCard when the page loads or when needed
-createCard();
+// Call createCard to display the feedback cards when the page loads
+document.addEventListener("DOMContentLoaded", createCard);
+
+
