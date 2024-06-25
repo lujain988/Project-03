@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const isLoggedIn = localStorage.getItem("loggedIn") === "true";
   checkLoginStatus(isLoggedIn);
 
+
+  // if there are any masseges, disply them
   if (localStorage.message) {
     const toastTrigger = document.getElementById("liveToastBtn");
     const toastLiveExample = document.getElementById("liveToast");
